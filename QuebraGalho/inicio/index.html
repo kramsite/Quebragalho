@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreelaMatch - Contrate Freelancers com Precisão</title>
+    <link rel="stylesheet" href="inicio.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Freela<span>Match</span></div>
+            <div class="nav-links">
+                <a href="index.html">Início</a>
+                <a href="buscar.html">Buscar Freelancers</a>
+                <a href="cadastro-projeto.html">Publicar Projeto</a>
+                <a href="cadastro-freelancer.html">Sou Freelancer</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Encontre o freelancer <span class="highlight">perfeito</span> para seu projeto</h1>
+            <p>Busca específica com filtros detalhados - nada de achismos</p>
+            
+            <div class="search-preview">
+                <form id="buscaRapida">
+                    <input type="text" placeholder="Ex: desenvolvedor React com experiência em API de pagamento" id="buscaInput">
+                    <button type="submit">Buscar Especificamente →</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="categorias-especificas">
+            <h2>Categorias com Alta Especificidade</h2>
+            <div class="categoria-grid">
+                <div class="categoria-card">
+                    <h3>🖌️ Design para E-commerce</h3>
+                    <p>Banners, vitrines virtuais, otimização de conversão</p>
+                </div>
+                <div class="categoria-card">
+                    <h3>🐍 Automação Python</h3>
+                    <p>Planilhas, web scraping, APIs, relatórios automáticos</p>
+                </div>
+                <div class="categoria-card">
+                    <h3>📱 React Native + Firebase</h3>
+                    <p>Apps com autenticação, push notifications, storage</p>
+                </div>
+                <div class="categoria-card">
+                    <h3>✍️ Copywriting para SaaS</h3>
+                    <p>Landing pages, emails de onboarding, funis de vendas</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="freelancers-destaque">
+            <h2>Freelancers Especialistas</h2>
+            <div id="listaFreelancers" class="freelancer-grid"></div>
+        </section>
+    </main>
+
+    <script src="inicio.js"></script>
+</body>
+</html>

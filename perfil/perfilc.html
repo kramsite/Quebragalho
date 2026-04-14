@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Perfil da Empresa - Quebragalho</title>
+    <link rel="stylesheet" href="../base/base.css">
+    <link rel="stylesheet" href="perfil.css">
+</head>
+<body class="profile-page company-profile">
+    <main class="profile-container">
+        <!-- Header responsivo -->
+        <header class="profile-header">
+            <div class="header-top">
+                <h1 class="brand-name">Quebra<span>galho</span></h1>
+                <nav class="nav-menu">
+                    <a href="#" class="nav-link active">Meu Perfil</a>
+                    <a href="#" class="nav-link">Projetos</a>
+                    <a href="#" class="nav-link">Freelancers</a>
+                    <a href="#" class="nav-link">Mensagens</a>
+                </nav>
+                <div class="user-menu">
+                    <span class="user-name">TechSolutions</span>
+                    <div class="avatar company-avatar">T</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo responsivo -->
+        <div class="profile-content">
+            <!-- Sidebar Esquerda -->
+            <aside class="profile-sidebar">
+                <div class="company-logo-section">
+                    <div class="company-logo-large">T</div>
+                    <button class="btn-upload-logo">Alterar Logo</button>
+                </div>
+
+                <div class="info-card">
+                    <h3>📋 Informações</h3>
+                    <div class="info-item">
+                        <span class="info-label">CNPJ:</span>
+                        <span class="info-value">12.345.678/0001-90</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Fundação:</span>
+                        <span class="info-value">2015</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Porte:</span>
+                        <span class="info-value">Médio Porte</span>
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <h3>📊 Estatísticas</h3>
+                    <div class="stat">
+                        <span class="stat-number">47</span>
+                        <span class="stat-label">Projetos Concluídos</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4.8</span>
+                        <span class="stat-label">Avaliação Média</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">Projetos Ativos</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Conteúdo Central -->
+            <div class="profile-main">
+                <section class="edit-section">
+                    <div class="section-header">
+                        <h2>✏️ Editar Perfil</h2>
+                        <button class="btn-edit" onclick="toggleEdit()">Editar</button>
+                    </div>
+
+                    <form id="form-company-profile" class="profile-form">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Nome da Empresa *</label>
+                                <input type="text" value="TechSolutions Ltda" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label>E-mail *</label>
+                                <input type="email" value="contato@techsolutions.com" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Telefone</label>
+                                <input type="tel" value="(11) 3456-7890" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label>Website</label>
+                                <input type="url" value="www.techsolutions.com.br" disabled>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Setor</label>
+                            <input type="text" value="Desenvolvimento de Software & TI" disabled>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Descrição</label>
+                            <textarea rows="4" disabled>Empresa especializada em soluções tecnológicas inovadoras. Atuamos no mercado há 8 anos com foco em qualidade e inovação.</textarea>
+                        </div>
+
+                        <div class="button-group" style="display: none;">
+                            <button type="button" class="btn-save" onclick="saveProfile()">💾 Salvar</button>
+                            <button type="button" class="btn-cancel" onclick="cancelEdit()">❌ Cancelar</button>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="projects-section">
+                    <h2>🚀 Projetos em Destaque</h2>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <h3>E-commerce App</h3>
+                            <p>Desenvolvimento de aplicativo mobile para loja virtual</p>
+                            <div class="project-meta">
+                                <span>💰 R$ 15.000</span>
+                                <span>⏰ 3 meses</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <h3>Sistema ERP</h3>
+                            <p>Implementação de sistema integrado de gestão</p>
+                            <div class="project-meta">
+                                <span>💰 R$ 25.000</span>
+                                <span>⏰ 6 meses</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar Direita -->
+            <aside class="profile-sidebar-right">
+                <div class="feedback-card">
+                    <h3>⭐ Feedbacks</h3>
+                    <div class="feedback-item">
+                        <div class="feedback-header">
+                            <strong>João Silva</strong>
+                            <div class="rating">★★★★★</div>
+                        </div>
+                        <p>"Excelente empresa! Muito profissional."</p>
+                        <small>📅 Há 2 dias</small>
+                    </div>
+                    <div class="feedback-item">
+                        <div class="feedback-header">
+                            <strong>Maria Santos</strong>
+                            <div class="rating">★★★★☆</div>
+                        </div>
+                        <p>"Ótima comunicação e pagamento pontual."</p>
+                        <small>📅 Há 1 semana</small>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        function toggleEdit() {
+            const inputs = document.querySelectorAll('#form-company-profile input, #form-company-profile textarea');
+            const buttonGroup = document.querySelector('.button-group');
+            const editBtn = document.querySelector('.btn-edit');
+            
+            inputs.forEach(input => {
+                input.disabled = !input.disabled;
+            });
+            
+            buttonGroup.style.display = buttonGroup.style.display === 'none' ? 'flex' : 'none';
+            editBtn.style.display = editBtn.style.display === 'none' ? 'block' : 'none';
+        }
+        
+        function saveProfile() {
+            alert('✅ Perfil atualizado com sucesso!');
+            toggleEdit();
+        }
+        
+        function cancelEdit() {
+            if(confirm('Tem certeza que deseja cancelar? As alterações não salvas serão perdidas.')) {
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html
