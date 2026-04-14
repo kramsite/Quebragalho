@@ -1,7 +1,7 @@
-/* Importando a base (ajuste o caminho se necessário) */
-@import url('../base/base.css');
+/* Importa as variáveis e estilos base */
+@import url('base/base.css');
 
-/* Força o fundo laranja apenas nesta página */
+/* Força o fundo laranja apenas na página de login */
 .login-page {
     background-color: var(--primary-orange) !important;
     display: flex;
@@ -11,46 +11,56 @@
     margin: 0;
 }
 
+/* Container centralizado - agora configurado para controlar o espaçamento interno */
 .login-container {
     width: 100%;
     max-width: 400px;
     padding: 20px;
     text-align: center;
+    min-height: 80vh; /* Define uma altura mínima para permitir o deslocamento */
+    display: flex;
+    flex-direction: column;
 }
 
-/* Estilo do nome do App acima do box */
+/* Nome do App - mantido no topo */
 .brand-name {
     color: var(--white);
-    font-size: 3rem;
+    font-size: 3.3rem;
     font-weight: 800;
-    margin-bottom: 30px;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    padding-top: 25px; /* Garante que ele não cole no topo da tela */
+}
+
+/* Formulário - empurrado para baixo */
+.login-box {
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+    margin-top: 60px; /* Ajuste este valor para descer mais ou menos o login */
+    /* Dica: Se quiser que ele vá para o rodapé total, use: margin-top: auto; */
 }
 
 .brand-name span {
     color: var(--accent-yellow);
 }
 
-/* O Box Branco */
-.login-box {
-    background-color: var(--white);
-    padding: 40px 30px;
-    border-radius: 20px;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+
+/* Textos brancos para contrastar com o fundo laranja */
+.login-box h2,
+.login-box p {
+    color: var(--white);
 }
 
 .login-box h2 {
-    color: var(--dark-grey);
-    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .login-box p {
-    color: #777;
-    font-size: 0.9rem;
-    margin-bottom: 25px;
+    opacity: 0.9;
+    margin-bottom: 30px;
 }
 
-/* Inputs */
+/* Estrutura dos inputs */
 .input-group {
     text-align: left;
     margin-bottom: 20px;
@@ -58,51 +68,70 @@
 
 .input-group label {
     display: block;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: bold;
-    color: var(--dark-grey);
-    margin-bottom: 5px;
+    color: var(--white);
+    margin-bottom: 8px;
     text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
+/* Estilo das caixas de texto (brancas e flutuantes) */
 .input-group input {
     width: 100%;
-    padding: 14px;
-    border: 2px solid #eee;
-    border-radius: 10px;
+    padding: 16px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: var(--dark-grey);
     outline: none;
     transition: 0.3s;
-    font-size: 1rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
+/* Efeito ao clicar para digitar no input */
 .input-group input:focus {
-    border-color: var(--accent-yellow);
+    background-color: var(--white);
+    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.6); /* Brilho amarelo */
+    transform: translateY(-2px);
 }
 
-/* Botão */
+/* Botão de Entrar (Escuro para máxima elegância e contraste) */
 .btn-login {
     width: 100%;
     padding: 16px;
-    background-color: var(--primary-orange);
-    color: white;
+    background-color: var(--botton-orange);
+    color: var(--white);
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-size: 1.1rem;
     font-weight: bold;
     cursor: pointer;
     transition: transform 0.2s, background-color 0.3s;
+    margin-top: 10px;
+}
+
+.btn-login:hover {
+    background-color: #db7800;
 }
 
 .btn-login:active {
     transform: scale(0.97);
 }
 
+/* Rodapé (Esqueceu a senha / Cadastre-se) */
 .login-footer {
     margin-top: 25px;
 }
 
+.login-footer p {
+    color: var(--white);
+    opacity: 0.9;
+}
+
 .link-destaque {
-    color: var(--primary-orange);
+    color: var(--accent-yellow);
     text-decoration: none;
     font-weight: bold;
 }
