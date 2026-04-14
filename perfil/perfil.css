@@ -1,0 +1,655 @@
+@import url('base/base.css');
+
+/* Reset e configurações base */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilos gerais dos perfis */
+.profile-page {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.profile-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: clamp(10px, 3vw, 20px);
+}
+
+/* ==================== HEADER RESPONSIVO ==================== */
+.profile-header {
+    background: var(--white);
+    border-radius: clamp(10px, 2vw, 15px);
+    padding: clamp(15px, 3vw, 25px) clamp(15px, 4vw, 30px);
+    margin-bottom: clamp(15px, 3vw, 30px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.brand-name {
+    font-size: clamp(1.3rem, 5vw, 1.8rem);
+    margin: 0;
+    color: var(--primary-orange);
+}
+
+.brand-name span {
+    color: var(--accent-yellow);
+}
+
+/* Navegação responsiva */
+.nav-menu {
+    display: flex;
+    gap: clamp(15px, 4vw, 30px);
+    flex-wrap: wrap;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: var(--dark-grey);
+    font-weight: 500;
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+    transition: color 0.3s;
+    white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    color: var(--primary-orange);
+}
+
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-name {
+    font-weight: 600;
+    color: var(--dark-grey);
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+}
+
+.avatar {
+    width: clamp(35px, 8vw, 40px);
+    height: clamp(35px, 8vw, 40px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    color: white;
+}
+
+.company-avatar {
+    background-color: var(--primary-orange);
+}
+
+.freelancer-avatar {
+    background-color: var(--primary-orange);
+}
+
+/* ==================== LAYOUT PRINCIPAL RESPONSIVO ==================== */
+.profile-content {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(15px, 3vw, 25px);
+}
+
+/* Mobile: 1 coluna */
+@media (max-width: 768px) {
+    .profile-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* Tablet: 2 colunas (sidebar + main, sidebar-right vai para baixo) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .profile-content {
+        grid-template-columns: 300px 1fr;
+    }
+    
+    .profile-sidebar-right {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+    }
+}
+
+/* ==================== CARDS LATERAIS RESPONSIVOS ==================== */
+.profile-sidebar,
+.profile-sidebar-right {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(15px, 3vw, 25px);
+}
+
+.company-logo-section,
+.freelancer-photo-section,
+.info-card,
+.stats-card,
+.skills-card,
+.feedback-card,
+.reviews-card,
+.availability-card {
+    background: white;
+    border-radius: clamp(12px, 2.5vw, 15px);
+    padding: clamp(15px, 4vw, 25px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.company-logo-section:hover,
+.freelancer-photo-section:hover,
+.info-card:hover,
+.stats-card:hover,
+.skills-card:hover,
+.feedback-card:hover,
+.reviews-card:hover,
+.availability-card:hover {
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+/* Logo/Foto responsiva */
+.company-logo-large,
+.freelancer-photo-large {
+    width: clamp(80px, 25vw, 120px);
+    height: clamp(80px, 25vw, 120px);
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-orange), var(--accent-yellow));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(2rem, 8vw, 3rem);
+    font-weight: bold;
+    color: white;
+    margin: 0 auto clamp(15px, 4vw, 20px);
+}
+
+/* Botões responsivos */
+.btn-upload-logo,
+.btn-upload-photo,
+.btn-add-skill,
+.btn-add-experience,
+.btn-add-education {
+    background: var(--primary-orange);
+    color: white;
+    border: none;
+    padding: clamp(8px, 2.5vw, 12px) clamp(15px, 4vw, 20px);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+    transition: all 0.3s;
+    width: 100%;
+}
+
+.btn-upload-logo:hover,
+.btn-upload-photo:hover,
+.btn-add-skill:hover,
+.btn-add-experience:hover,
+.btn-add-education:hover {
+    background: #db7800;
+    transform: translateY(-2px);
+}
+
+.btn-upload-logo:active,
+.btn-upload-photo:active,
+.btn-add-skill:active,
+.btn-add-experience:active,
+.btn-add-education:active {
+    transform: translateY(0);
+}
+
+/* Informações da empresa */
+.info-card h3,
+.stats-card h3,
+.skills-card h3,
+.feedback-card h3,
+.reviews-card h3,
+.availability-card h3 {
+    color: var(--primary-orange);
+    margin-bottom: 15px;
+    font-size: clamp(1rem, 3vw, 1.1rem);
+}
+
+.info-item {
+    margin-bottom: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.info-label {
+    font-weight: 600;
+    color: var(--dark-grey);
+    min-width: 70px;
+}
+
+.info-value {
+    color: #666;
+    word-break: break-word;
+    flex: 1;
+}
+
+/* Estatísticas */
+.stat {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.stat-number {
+    display: block;
+    font-size: clamp(1.5rem, 5vw, 2rem);
+    font-weight: bold;
+    color: var(--primary-orange);
+}
+
+.stat-label {
+    color: #666;
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
+}
+
+/* Skills tags responsivas */
+.skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.skill-tag {
+    background: #f0f0f0;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
+    color: var(--dark-grey);
+    transition: all 0.3s;
+}
+
+.skill-tag:hover {
+    background: var(--primary-orange);
+    color: white;
+    transform: scale(1.05);
+}
+
+/* ==================== CONTEÚDO PRINCIPAL RESPONSIVO ==================== */
+.profile-main {
+    background: white;
+    border-radius: clamp(12px, 2.5vw, 15px);
+    padding: clamp(20px, 4vw, 30px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.section-header h2 {
+    color: var(--dark-grey);
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
+}
+
+.btn-edit {
+    background: var(--primary-orange);
+    color: white;
+    border: none;
+    padding: clamp(8px, 2vw, 10px) clamp(15px, 4vw, 20px);
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+    transition: all 0.3s;
+}
+
+.btn-edit:hover {
+    background: #db7800;
+    transform: translateY(-2px);
+}
+
+/* Formulário responsivo */
+.profile-form {
+    margin-bottom: 40px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--dark-grey);
+    font-size: clamp(0.85rem, 2.5vw, 0.9rem);
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: clamp(10px, 2.5vw, 12px);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+    transition: all 0.3s;
+    font-family: inherit;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-orange);
+    box-shadow: 0 0 0 3px rgba(255, 107, 0, 0.1);
+}
+
+.input-group input:disabled,
+.input-group textarea:disabled {
+    background: #f9f9f9;
+    color: #333;
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Botões do formulário */
+.button-group {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+.btn-save,
+.btn-cancel {
+    padding: clamp(10px, 2.5vw, 12px) clamp(20px, 5vw, 30px);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: clamp(0.85rem, 2.5vw, 0.95rem);
+    transition: all 0.3s;
+    flex: 1;
+    min-width: 120px;
+}
+
+.btn-save {
+    background: #4CAF50;
+    color: white;
+}
+
+.btn-save:hover {
+    background: #45a049;
+    transform: translateY(-2px);
+}
+
+.btn-cancel {
+    background: #f44336;
+    color: white;
+}
+
+.btn-cancel:hover {
+    background: #da190b;
+    transform: translateY(-2px);
+}
+
+/* ==================== PROJETOS E EXPERIÊNCIAS RESPONSIVOS ==================== */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.project-card,
+.experience-item,
+.education-item,
+.feedback-item,
+.review-item {
+    background: #f9f9f9;
+    padding: clamp(15px, 3vw, 20px);
+    border-radius: 10px;
+    margin-bottom: 15px;
+    transition: all 0.3s;
+}
+
+.project-card:hover,
+.experience-item:hover,
+.education-item:hover,
+.feedback-item:hover,
+.review-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.project-card h3,
+.experience-item h3,
+.education-item h3 {
+    color: var(--primary-orange);
+    margin-bottom: 10px;
+    font-size: clamp(1rem, 3vw, 1.1rem);
+}
+
+.project-meta {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
+    color: #666;
+}
+
+.exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 5px;
+}
+
+.exp-date {
+    color: #666;
+    font-size: clamp(0.75rem, 2vw, 0.85rem);
+}
+
+.exp-company {
+    color: var(--primary-orange);
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+/* Avaliações e ratings */
+.rating {
+    color: #FFD700;
+    font-size: clamp(0.85rem, 2.5vw, 1rem);
+}
+
+.review-header,
+.feedback-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+/* Disponibilidade */
+.availability-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+}
+
+.availability-status.available {
+    background: #e8f5e9;
+    color: #4CAF50;
+}
+
+.status-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4CAF50;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.2); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* ==================== MENU MOBILE ==================== */
+@media (max-width: 768px) {
+    .header-top {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .nav-menu {
+        justify-content: center;
+        order: 3;
+        width: 100%;
+    }
+    
+    .user-menu {
+        order: 2;
+    }
+    
+    .brand-name {
+        order: 1;
+    }
+    
+    /* Melhorias para toque em mobile */
+    .btn-edit,
+    .btn-save,
+    .btn-cancel,
+    .btn-upload-logo,
+    .btn-upload-photo,
+    .btn-add-skill,
+    .btn-add-experience,
+    .btn-add-education,
+    .nav-link {
+        min-height: 44px; /* Tamanho mínimo para toque */
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .skill-tag {
+        padding: 8px 15px;
+    }
+}
+
+/* ==================== TABLET MELHORIAS ==================== */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .profile-sidebar-right {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==================== DESKTOP GRANDE ==================== */
+@media (min-width: 1400px) {
+    .profile-container {
+        padding: 30px;
+    }
+    
+    .profile-content {
+        gap: 30px;
+    }
+}
+
+/* ==================== IMPRESSÃO ==================== */
+@media print {
+    .profile-page {
+        background: white;
+    }
+    
+    .btn-edit,
+    .btn-save,
+    .btn-cancel,
+    .btn-upload-logo,
+    .btn-upload-photo,
+    .btn-add-skill,
+    .btn-add-experience,
+    .btn-add-education {
+        display: none;
+    }
+    
+    .profile-header,
+    .profile-main,
+    .info-card,
+    .stats-card,
+    .skills-card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+}
+
+/* ==================== ANIMAÇÕES E ACESSIBILIDADE ==================== */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Foco visível para acessibilidade */
+:focus-visible {
+    outline: 2px solid var(--primary-orange);
+    outline-offset: 2px;
+}
+
+/* Scroll suave */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Melhorias de performance */
+@media (max-width: 768px) {
+    .project-card:hover,
+    .experience-item:hover,
+    .skill-tag:hover {
+        transform: none; /* Remove hover animations on mobile for better performance */
+    }
+}

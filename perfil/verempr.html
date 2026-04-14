@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Perfil da Empresa - Quebragalho</title>
+    <link rel="stylesheet" href="../base/base.css">
+    <link rel="stylesheet" href="perfil.css">
+    <style>
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+            flex: 1;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #db7800;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-orange);
+            color: var(--primary-orange);
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-orange);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .view-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #4CAF50;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-top: 10px;
+        }
+
+        .company-website {
+            margin-top: 15px;
+            padding: 10px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .company-website a {
+            color: var(--primary-orange);
+            text-decoration: none;
+        }
+
+        .chat-data {
+            display: none;
+        }
+    </style>
+</head>
+<body class="profile-page company-profile">
+    <main class="profile-container">
+        <!-- Dados ocultos para passar para o chat -->
+        <div class="chat-data">
+            <input type="hidden" id="companyId" value="company_456">
+            <input type="hidden" id="companyName" value="TechSolutions">
+            <input type="hidden" id="companyAvatar" value="T">
+            <input type="hidden" id="freelancerId" value="freelancer_123">
+            <input type="hidden" id="freelancerName" value="Ana Carolina">
+        </div>
+
+        <!-- Header Responsivo -->
+        <header class="profile-header">
+            <div class="header-top">
+                <h1 class="brand-name">Quebra<span>galho</span></h1>
+                <nav class="nav-menu">
+                    <a href="#" class="nav-link">Dashboard</a>
+                    <a href="#" class="nav-link">Projetos</a>
+                    <a href="#" class="nav-link">Empresas</a>
+                    <a href="#" class="nav-link active">Mensagens</a>
+                </nav>
+                <div class="user-menu">
+                    <span class="user-name">Ana Carolina</span>
+                    <div class="avatar freelancer-avatar">A</div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Conteúdo Principal -->
+        <div class="profile-content">
+            <!-- Sidebar Esquerda -->
+            <aside class="profile-sidebar">
+                <div class="company-logo-section">
+                    <div class="company-logo-large">T</div>
+                    <div class="view-badge">Perfil da Empresa</div>
+                </div>
+
+                <div class="info-card">
+                    <h3>📋 Informações da Empresa</h3>
+                    <div class="info-item">
+                        <span class="info-label">CNPJ:</span>
+                        <span class="info-value">12.345.678/0001-90</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Fundação:</span>
+                        <span class="info-value">2015</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Porte:</span>
+                        <span class="info-value">Médio Porte</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Setor:</span>
+                        <span class="info-value">Tecnologia</span>
+                    </div>
+                </div>
+
+                <div class="stats-card">
+                    <h3>📊 Estatísticas</h3>
+                    <div class="stat">
+                        <span class="stat-number">47</span>
+                        <span class="stat-label">Projetos Concluídos</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4.8</span>
+                        <span class="stat-label">Avaliação Média</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">12</span>
+                        <span class="stat-label">Projetos Ativos</span>
+                    </div>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div class="action-buttons">
+                    <a href="#" class="btn-primary" onclick="redirectToChat(event)">💬 Contatar Empresa</a>
+                    <button class="btn-secondary" onclick="showJobs()">💼 Ver Vagas</button>
+                </div>
+            </aside>
+
+            <!-- Conteúdo Central -->
+            <div class="profile-main">
+                <section class="edit-section">
+                    <div class="section-header">
+                        <h2>🏢 Sobre a Empresa</h2>
+                    </div>
+
+                    <form class="profile-form">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Nome da Empresa</label>
+                                <input type="text" value="TechSolutions Ltda" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label>E-mail Corporativo</label>
+                                <input type="email" value="contato@techsolutions.com" disabled>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Descrição da Empresa</label>
+                            <textarea rows="4" disabled>Empresa especializada em soluções tecnológicas inovadoras. Atuamos no mercado há 8 anos com foco em qualidade e inovação. Buscamos freelancers talentosos para projetos desafiadores. Temos uma cultura colaborativa e valorizamos o trabalho remoto.</textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Áreas de Atuação</label>
+                            <div class="skills-tags">
+                                <span class="skill-tag">Desenvolvimento Web</span>
+                                <span class="skill-tag">Mobile</span>
+                                <span class="skill-tag">Cloud Computing</span>
+                                <span class="skill-tag">IA & Machine Learning</span>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="projects-section">
+                    <div class="section-header">
+                        <h2>🚀 Projetos em Destaque</h2>
+                    </div>
+                    <div class="projects-grid">
+                        <div class="project-card">
+                            <h3>E-commerce App</h3>
+                            <p>Desenvolvimento de aplicativo mobile para loja virtual</p>
+                            <div class="project-meta">
+                                <span>💰 R$ 15.000</span>
+                                <span>⏰ 3 meses</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <h3>Sistema ERP</h3>
+                            <p>Implementação de sistema integrado de gestão</p>
+                            <div class="project-meta">
+                                <span>💰 R$ 25.000</span>
+                                <span>⏰ 6 meses</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <h3>Chatbot IA</h3>
+                            <p>Desenvolvimento de assistente virtual com IA</p>
+                            <div class="project-meta">
+                                <span>💰 R$ 12.000</span>
+                                <span>⏰ 2 meses</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="experience-section">
+                    <div class="section-header">
+                        <h2>⭐ Depoimentos de Freelancers</h2>
+                    </div>
+                    <div class="experience-item">
+                        <p>"Excelente empresa para trabalhar! Pagamento sempre em dia e comunicação clara."</p>
+                        <p class="exp-company">- João Silva, Desenvolvedor</p>
+                    </div>
+                    <div class="experience-item">
+                        <p>"Times organizados e projetos desafiadores. Recomendo!"</p>
+                        <p class="exp-company">- Maria Santos, Designer</p>
+                    </div>
+                    <div class="experience-item">
+                        <p>"Ambiente profissional e respeitoso. Ótima parceria!"</p>
+                        <p class="exp-company">- Pedro Costa, UX Designer</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Sidebar Direita -->
+            <aside class="profile-sidebar-right">
+                <div class="reviews-card">
+                    <h3>⭐ Avaliações de Freelancers</h3>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <strong>João Silva</strong>
+                            <div class="rating">★★★★★</div>
+                        </div>
+                        <p>"Empresa muito organizada e profissional."</p>
+                        <small>📅 Há 1 mês</small>
+                    </div>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <strong>Maria Santos</strong>
+                            <div class="rating">★★★★☆</div>
+                        </div>
+                        <p>"Ótima comunicação e pagamento pontual."</p>
+                        <small>📅 Há 2 semanas</small>
+                    </div>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <strong>Pedro Costa</strong>
+                            <div class="rating">★★★★★</div>
+                        </div>
+                        <p>"Projetos interessantes e equipe receptiva."</p>
+                        <small>📅 Há 3 meses</small>
+                    </div>
+                </div>
+
+                <div class="availability-card">
+                    <h3>📈 Benefícios</h3>
+                    <p>✅ Pagamento em dia</p>
+                    <p>✅ Trabalho remoto</p>
+                    <p>✅ Horário flexível</p>
+                    <p>✅ Feedback construtivo</p>
+                    <p>✅ Oportunidades recorrentes</p>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        // Função para redirecionar para o chat
+        function redirectToChat(event) {
+            event.preventDefault();
+            
+            // Pegar dados da empresa e freelancer
+            const companyId = document.getElementById('companyId').value;
+            const companyName = document.getElementById('companyName').value;
+            const companyAvatar = document.getElementById('companyAvatar').value;
+            const freelancerId = document.getElementById('freelancerId').value;
+            const freelancerName = document.getElementById('freelancerName').value;
+            
+            // Criar URL com parâmetros para o chat
+            const chatUrl = `/chat.html?userType=freelancer&userId=${freelancerId}&userName=${encodeURIComponent(freelancerName)}&contactId=${companyId}&contactName=${encodeURIComponent(companyName)}&contactAvatar=${companyAvatar}`;
+            
+            // Redirecionar para página do chat
+            window.location.href = chatUrl;
+        }
+
+        function showJobs() {
+            alert("📋 Vagas disponíveis:\n\n1. Desenvolvedor React - R$ 8.000/mês\n2. UI/UX Designer - R$ 6.000/mês\n3. DevOps Engineer - R$ 10.000/mês\n\nEntre em contato para mais informações!");
+        }
+    </script>
+</body>
+</html>
