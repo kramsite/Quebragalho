@@ -1,0 +1,116 @@
+
+
+/* base/base.css */
+:root {
+    --primary-orange: #FF8C00;
+    --accent-yellow: #FFD700;
+    --dark-grey: #333;
+    --light-grey: #f4f4f4;
+    --white: #ffffff;
+    --transition: 0.3s ease-in-out;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--light-grey);
+    color: var(--dark-grey);
+}
+
+/* Header Global */
+.main-header {
+    background-color: var(--primary-orange);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    color: var(--white);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+.logo span { color: var(--accent-yellow); }
+
+/* Menu Hambúrguer */
+.btn-menu {
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.btn-menu span {
+    display: block;
+    width: 22px;
+    height: 3px;
+    background-color: var(--white);
+    border-radius: 2px;
+}
+
+/* Sidebar */
+.sidebar {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    width: 280px;
+    height: 100%;
+    background-color: var(--white);
+    z-index: 1000;
+    transition: var(--transition);
+    box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+}
+
+.sidebar.active { left: 0; }
+
+.sidebar-header {
+    background-color: var(--primary-orange);
+    padding: 20px;
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btn-close {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.sidebar ul { list-style: none; margin-top: 20px; }
+
+.sidebar ul li a {
+    display: block;
+    padding: 15px 20px;
+    text-decoration: none;
+    color: var(--dark-grey);
+    border-bottom: 1px solid #eee;
+}
+
+.overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: none;
+    z-index: 999;
+}
+
+.overlay.active { display: block; }
