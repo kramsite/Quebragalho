@@ -34,20 +34,55 @@
 .selection-box p {
     color: var(--white);
     opacity: 0.9;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+}
+
+/* Estilo do container do ícone */
+.icon-box {
+    width: 60px;
+    height: 60px;
+    background-color: var(--light-grey);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    transition: var(--transition);
+}
+
+/* O ícone em si */
+.icon-box i {
+    font-size: 1.8rem;
+    color: var(--primary-orange);
+}
+
+/* Efeito quando passa o mouse ou toca no card */
+.option-card:hover .icon-box {
+    background-color: var(--accent-yellow);
+}
+
+.option-card:hover .icon-box i {
+    color: var(--white);
+}
+
+/* Melhoria no título do card */
+.option-card h3 {
+    color: var(--dark-grey); /* Cor mais sóbria para o título */
+    font-weight: 700;
+    margin-bottom: 6px;
 }
 
 /* Container das opções */
 .options {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 15px;
 }
 
 /* Cards de Opção */
 .option-card {
     background-color: var(--white);
-    padding: 25px;
+    padding: 15px;
     border-radius: 15px;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.3s;
@@ -78,7 +113,7 @@
 }
 
 .login-footer {
-    margin-top: 30px;
+    margin-top: 20px;
 }
 
 .login-footer p { color: var(--white); }

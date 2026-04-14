@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro - Quebragalho</title>
     <link rel="stylesheet" href="base/base.css">
-    <link rel="stylesheet" href="cadastro.css">
+    <link rel="stylesheet" href="cadastro1.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body class="cadastro-page">
 
@@ -18,13 +19,17 @@
 
             <div class="options">
                 <div class="option-card" onclick="selecionarPerfil('fisica')">
-                    <div class="icon">👤</div>
+                    <div class="icon-box">
+                        <i class="fa-solid fa-user-tie"></i>
+                    </div>
                     <h3>Pessoa Física</h3>
                     <p>Quero oferecer meus serviços ou contratar pequenos reparos.</p>
                 </div>
 
                 <div class="option-card" onclick="selecionarPerfil('empresa')">
-                    <div class="icon">🏢</div>
+                    <div class="icon-box">
+                        <i class="fa-solid fa-building"></i>
+                    </div>
                     <h3>Empresa</h3>
                     <p>Quero publicar vagas e encontrar profissionais qualificados.</p>
                 </div>
@@ -39,9 +44,12 @@
     <script src="base/base.js"></script>
     <script>
         function selecionarPerfil(tipo) {
-            // Aqui você redireciona para o formulário específico
-            window.location.href = `form-cadastro.html?tipo=${tipo}`;
+        if (tipo === 'fisica') {
+            window.location.href = "cadastro2.html";
+        } else {
+            window.location.href = "cadastro3.html";
         }
+    }
     </script>
 </body>
 </html>

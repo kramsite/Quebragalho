@@ -1,0 +1,154 @@
+/* --- RESET E VARIÁVEIS --- */
+:root {
+    --primary-orange: #FF8C00;    /* Fundo da página */
+    --botton-orange: #db7800;     /* Cor dos botões */
+    --accent-yellow: #FFD700;     /* Detalhe no nome */
+    --dark-grey: #333333;         /* Texto dos inputs */
+    --white: #FFFFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* --- CONFIGURAÇÃO DA PÁGINA --- */
+body.login-page {
+    background-color: var(--primary-orange) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centraliza o conteúdo verticalmente na tela */
+    min-height: 100vh;
+    padding: 20px;
+    margin: 0;
+}
+
+/* Container que segura tudo */
+.login-container {
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    /* Altura mínima para evitar que o título suba/desça 
+       quando os campos do formulário mudarem */
+    min-height: 550px; 
+}
+
+/* --- NOME DO APP (FIXO NO TOPO) --- */
+.brand-name {
+    color: var(--white);
+    font-size: 3rem;
+    font-weight: 800;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    padding-top: 10px;
+    flex-shrink: 0; /* Impede que o título seja esmagado */
+}
+
+.brand-name span {
+    color: var(--accent-yellow);
+}
+
+/* --- CAIXA DO FORMULÁRIO --- */
+.login-box {
+    background-color: transparent;
+    flex-grow: 1; /* Ocupa o espaço restante sem empurrar o título */
+    margin-top: 15px;
+}
+
+/* --- ESTILO DOS PASSOS (STEPS) --- */
+.form-step {
+    /* Animação apenas de transparência para não haver movimento físico */
+    animation: fadeInOnly 0.4s ease-in-out;
+}
+
+@keyframes fadeInOnly {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* --- GRUPOS DE INPUT --- */
+.input-group {
+    text-align: left;
+    margin-bottom: 20px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.85rem;
+    font-weight: bold;
+    color: var(--white);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 16px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    color: var(--dark-grey);
+    outline: none;
+    transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.input-group input:focus {
+    background-color: var(--white);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+}
+
+/* --- BOTÕES LARANJAS (.btn-login) --- */
+.btn-login {
+    width: 100%;
+    padding: 16px;
+    background-color: var(--botton-orange);
+    color: var(--white);
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.3s;
+    margin-top: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.btn-login:hover {
+    background-color: #c46c00; /* Laranja mais escuro no hover */
+}
+
+.btn-login:active {
+    transform: scale(0.97);
+}
+
+/* Estilo do botão VOLTAR (Transparente) */
+button[onclick="nextStep(1)"] {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(5px);
+}
+
+button[onclick="nextStep(1)"]:hover {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
+/* --- RODAPÉ --- */
+.login-footer {
+    margin-top: 30px;
+}
+
+.login-footer a {
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.login-footer a:hover {
+    color: var(--accent-yellow) !important;
+}
