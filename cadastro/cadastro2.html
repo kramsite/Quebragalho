@@ -10,6 +10,11 @@
 </head>
 <body class="login-page">
 
+    <div id="toast" class="toast">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    <span id="toast-message">Preencha todos os campos!</span>
+</div>
+
     <main class="login-container">
         <h1 class="brand-name">Quebra<span>galho</span></h1>
 
@@ -24,7 +29,7 @@
                     </div>
                     <div class="input-group">
                         <label>CPF</label>
-                        <input type="text" id="cpf" placeholder="000.000.000-00" required>
+                        <input type="text" id="cpf" placeholder="000.000.000-00" maxlength="14" required>
                     </div>
                     <div class="input-group">
                         <label>E-mail</label>
@@ -37,11 +42,20 @@
                     <h2 style="color: white; margin-bottom: 20px;">Segurança</h2>
                     <div class="input-group">
                         <label>Senha</label>
-                        <input type="password" id="senha" placeholder="••••••••" required>
+                        <div class="password-wrapper" style="position: relative;">
+                            <input type="password" id="senha" placeholder="••••••••" required>
+                            <i class="fa-solid fa-eye" id="toggleSenha" onclick="togglePassword('senha', this)" 
+                            style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #666;"></i>
+                        </div>
                     </div>
+
                     <div class="input-group">
                         <label>Confirmar Senha</label>
-                        <input type="password" id="confirma-senha" placeholder="••••••••" required>
+                        <div class="password-wrapper" style="position: relative;">
+                            <input type="password" id="confirma-senha" placeholder="••••••••" required>
+                            <i class="fa-solid fa-eye" id="toggleConfirma" onclick="togglePassword('confirma-senha', this)" 
+                            style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #666;"></i>
+                        </div>
                     </div>
                     
                     <div style="display: flex; gap: 10px;">
@@ -60,30 +74,141 @@
 
     <script src="../base/base.js"></script>
     <script>
-        function nextStep(step) {
-            // Esconde todos os passos
-            document.querySelectorAll('.form-step').forEach(el => {
-                el.style.display = 'none';
-            });
+        /* ================================================================
+   LÓGICA DE CADASTRO - QUEBRAGALHO
+   ================================================================
+*/
 
-            // Mostra o passo desejado
-            document.getElementById('step-' + step).style.display = 'block';
+/**
+ * Exibe uma notificação elegante (Toast) no topo da tela
+ * @param {string} mensagem - O texto que será exibido
+ */
+function showToast(mensagem) {
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toast-message');
+    
+    if (!toast || !toastMsg) return; // Segurança caso o HTML não tenha o elemento
+
+    toastMsg.innerText = mensagem;
+    toast.classList.add('show');
+
+    // Remove a mensagem após 3 segundos
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, 3000);
+}
+
+/**
+ * Controla a transição entre os passos do formulário com validação
+ * @param {number} step - O número do passo para onde o usuário deseja ir
+ */
+function nextStep(step) {
+    // Validação: Só valida se o usuário estiver tentando ir para o Passo 2
+    if (step === 2) {
+        const nome = document.getElementById('nome').value.trim();
+        const cpf = document.getElementById('cpf').value.trim();
+        const email = document.getElementById('email').value.trim();
+
+        // Verifica se algum campo está vazio
+        if (nome === "" || cpf === "" || email === "") {
+            showToast("Ops! Preencha todos os campos para continuar.");
+            return;
         }
+        
+        // Validação simples de e-mail
+        if (!email.includes("@") || !email.includes(".")) {
+            showToast("Por favor, insira um e-mail válido.");
+            return;
+        }
+    }
 
-        // Lógica final de envio
-        document.getElementById('multi-step-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const senha = document.getElementById('senha').value;
-            const confirma = document.getElementById('confirma-senha').value;
+    // Se passou na validação ou se for o botão 'Voltar', executa a troca de tela
+    const steps = document.querySelectorAll('.form-step');
+    
+    steps.forEach(el => {
+        el.style.display = 'none';
+        el.classList.remove('active');
+    });
 
-            if (senha !== confirma) {
-                alert("As senhas não coincidem!");
-                return;
-            }
+    const nextStepEl = document.getElementById('step-' + step);
+    if (nextStepEl) {
+        nextStepEl.style.display = 'block';
+        nextStepEl.classList.add('active');
+    }
+}
 
-            alert("Cadastro realizado com sucesso!");
-            window.location.href = "../index/index.html"; // Volta para o login
-        });
+/**
+ * Alterna a visibilidade da senha entre texto e pontos
+ * @param {string} inputId - O ID do campo de input (senha ou confirma-senha)
+ * @param {HTMLElement} icon - O elemento do ícone clicado (this)
+ */
+function togglePassword(inputId, icon) {
+    const input = document.getElementById(inputId);
+    
+    if (input.type === "password") {
+        input.type = "text";
+        icon.classList.replace("fa-eye", "fa-eye-slash");
+    } else {
+        input.type = "password";
+        icon.classList.replace("fa-eye-slash", "fa-eye");
+    }
+}
+
+/**
+ * Evento de envio final do formulário
+ */
+document.getElementById('multi-step-form').addEventListener('submit', function(e) {
+    e.preventDefault(); // Impede o recarregamento da página
+
+    const senha = document.getElementById('senha').value;
+    const confirma = document.getElementById('confirma-senha').value;
+
+    // Validação final de segurança
+    if (senha.length < 6) {
+        showToast("A senha deve ter pelo menos 6 caracteres.");
+        return;
+    }
+
+    if (senha !== confirma) {
+        showToast("As senhas não coincidem!");
+        return;
+    }
+
+    // Sucesso!
+    showToast("Cadastro realizado com sucesso!");
+    
+    // Pequeno atraso para o usuário ver o toast de sucesso antes de redirecionar
+    setTimeout(() => {
+        window.location.href = "../index/index.html";
+    }, 1500);
+
+    
+});
+
+// Seleciona o campo de CPF
+const inputCPF = document.getElementById('cpf');
+
+// Adiciona o evento de digitação
+inputCPF.addEventListener('input', (e) => {
+    let value = e.target.value;
+
+    // Remove qualquer caractere que não seja número
+    value = value.replace(/\D/g, "");
+
+    // Aplica a formatação progressivamente
+    if (value.length > 3) {
+        value = value.replace(/^(\d{3})(\d)/, "$1.$2");
+    }
+    if (value.length > 6) {
+        value = value.replace(/^(\d{3})\.(\d{3})(\d)/, "$1.$2.$3");
+    }
+    if (value.length > 9) {
+        value = value.replace(/^(\d{3})\.(\d{3})\.(\d{3})(\d)/, "$1.$2.$3-$4");
+    }
+
+    // Limita a 14 caracteres (000.000.000-00)
+    e.target.value = value.substring(0, 14);
+});
     </script>
 </body>
 </html>

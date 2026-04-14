@@ -137,6 +137,29 @@ button[onclick="nextStep(1)"]:hover {
     background-color: rgba(255, 255, 255, 0.3) !important;
 }
 
+/* Estilo da Notificação (Toast) */
+.toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100px);
+    background-color: #ff4b2b; /* Vermelho vibrante */
+    color: white;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+}
+
 /* --- RODAPÉ --- */
 .login-footer {
     margin-top: 30px;
