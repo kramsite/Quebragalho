@@ -1,0 +1,90 @@
+@import url('../base/base.css');
+
+.cadastro-page {
+    background-color: var(--primary-orange) !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.cadastro-container {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    text-align: center;
+}
+
+.brand-name {
+    color: var(--white);
+    font-size: 2.5rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
+
+.brand-name span { color: var(--accent-yellow); }
+
+.selection-box h2 {
+    color: var(--white);
+    margin-bottom: 10px;
+}
+
+.selection-box p {
+    color: var(--white);
+    opacity: 0.9;
+    margin-bottom: 30px;
+}
+
+/* Container das opções */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Cards de Opção */
+.option-card {
+    background-color: var(--white);
+    padding: 25px;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.3s;
+    text-align: left;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+    border: 3px solid transparent;
+}
+
+.option-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-yellow);
+}
+
+.option-card .icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.option-card h3 {
+    color: var(--primary-orange);
+    margin-bottom: 5px;
+}
+
+.option-card p {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 0;
+}
+
+.login-footer {
+    margin-top: 30px;
+}
+
+.login-footer p { color: var(--white); }
+
+.link-destaque {
+    color: var(--accent-yellow);
+    text-decoration: none;
+    font-weight: bold;
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro - Quebragalho</title>
+    <link rel="stylesheet" href="base/base.css">
+    <link rel="stylesheet" href="cadastro.css">
+</head>
+<body class="cadastro-page">
+
+    <main class="cadastro-container">
+        <h1 class="brand-name">Quebra<span>galho</span></h1>
+        
+        <div class="selection-box">
+            <h2>Como você quer usar o app?</h2>
+            <p>Escolha o tipo de perfil ideal para você</p>
+
+            <div class="options">
+                <div class="option-card" onclick="selecionarPerfil('fisica')">
+                    <div class="icon">👤</div>
+                    <h3>Pessoa Física</h3>
+                    <p>Quero oferecer meus serviços ou contratar pequenos reparos.</p>
+                </div>
+
+                <div class="option-card" onclick="selecionarPerfil('empresa')">
+                    <div class="icon">🏢</div>
+                    <h3>Empresa</h3>
+                    <p>Quero publicar vagas e encontrar profissionais qualificados.</p>
+                </div>
+            </div>
+
+            <div class="login-footer">
+                <p>Já tem uma conta? <a href="index.html" class="link-destaque">Faça Login</a></p>
+            </div>
+        </div>
+    </main>
+
+    <script src="base/base.js"></script>
+    <script>
+        function selecionarPerfil(tipo) {
+            // Aqui você redireciona para o formulário específico
+            window.location.href = `form-cadastro.html?tipo=${tipo}`;
+        }
+    </script>
+</body>
+</html>
