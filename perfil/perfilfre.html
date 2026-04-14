@@ -136,6 +136,27 @@
             font-size: 0.85rem;
         }
 
+        /* Tempo no site */
+        .time-on-site {
+            background: linear-gradient(135deg, var(--primary-orange), var(--accent-yellow));
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .time-on-site .days {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .time-on-site .label {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
         /* Responsividade para elementos específicos */
         @media (max-width: 768px) {
             .portfolio-grid {
@@ -184,6 +205,12 @@
                     <button class="btn-upload-photo">📸 Alterar Foto</button>
                 </div>
 
+                <!-- Tempo no site -->
+                <div class="time-on-site">
+                    <span class="days">2 anos e 3 meses</span>
+                    <span class="label">📅 Tempo no Quebragalho</span>
+                </div>
+
                 <div class="skills-card">
                     <h3>🛠️ Habilidades Técnicas</h3>
                     <div class="skills-tags" id="skills-container">
@@ -212,10 +239,6 @@
                     <div class="stat">
                         <span class="stat-number">6</span>
                         <span class="stat-label">Em Andamento</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">R$ 85/h</span>
-                        <span class="stat-label">Taxa por Hora</span>
                     </div>
                 </div>
 
@@ -254,45 +277,18 @@
 
                         <div class="form-row">
                             <div class="input-group">
-                                <label>Telefone</label>
-                                <input type="tel" value="(11) 98765-4321" disabled>
+                                <label>Idade</label>
+                                <input type="number" value="28" disabled>
                             </div>
                             <div class="input-group">
-                                <label>Localização</label>
-                                <input type="text" value="São Paulo, SP - Brasil" disabled>
+                                <label>Profissão</label>
+                                <input type="text" value="Desenvolvedora Full Stack" disabled>
                             </div>
-                        </div>
-
-                        <div class="input-group">
-                            <label>Título Profissional</label>
-                            <input type="text" value="Desenvolvedora Full Stack Senior" disabled>
                         </div>
 
                         <div class="input-group">
                             <label>Biografia</label>
                             <textarea rows="4" disabled>Desenvolvedora full stack com 6 anos de experiência. Especializada em React, Node.js e Python. Apaixonada por criar soluções inovadoras e interfaces intuitivas. Disponível para projetos freelance e consultorias. Já trabalhei com mais de 50 clientes em 5 países diferentes.</textarea>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="input-group">
-                                <label>LinkedIn</label>
-                                <input type="url" value="linkedin.com/in/ana-carolina" disabled>
-                            </div>
-                            <div class="input-group">
-                                <label>GitHub</label>
-                                <input type="url" value="github.com/anacarolina" disabled>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="input-group">
-                                <label>Portfólio Online</label>
-                                <input type="url" value="https://portfolio-ana.com" disabled>
-                            </div>
-                            <div class="input-group">
-                                <label>Taxa por Hora (R$)</label>
-                                <input type="number" value="85" disabled>
-                            </div>
                         </div>
 
                         <div class="button-group" style="display: none;">
@@ -484,34 +480,6 @@
                         <small>💼 Projeto: Dashboard Analytics - R$ 12.000</small>
                         <small>📅 Há 1 mês</small>
                     </div>
-                </div>
-
-                <div class="stats-card">
-                    <h3>📈 Projetos por Categoria</h3>
-                    <div class="stat">
-                        <span class="stat-number">35</span>
-                        <span class="stat-label">Desenvolvimento Web</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">28</span>
-                        <span class="stat-label">Mobile</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">18</span>
-                        <span class="stat-label">UI/UX Design</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-number">8</span>
-                        <span class="stat-label">Consultoria</span>
-                    </div>
-                </div>
-
-                <div class="availability-card">
-                    <h3>⏰ Horário de Trabalho</h3>
-                    <p>🇧🇷 Fuso: BRT (UTC-3)</p>
-                    <p>📅 Segunda - Sexta: 9h às 18h</p>
-                    <p>🌙 Atendimento noturno: Sob consulta</p>
-                    <p>🎯 Tempo médio de resposta: 2 horas</p>
                 </div>
             </aside>
         </div>
