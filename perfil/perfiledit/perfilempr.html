@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil da Empresa - Quebragalho</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../base/base.css">
+    <link rel="stylesheet" href="perfilfree.css">
+</head>
+<body>
+
+    <div id="overlay" class="overlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo-sidebar">Quebra<span>galho</span></div>
+            <button class="btn-close" id="close-menu"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="../home/home.html"><i class="fa-solid fa-house"></i> Início</a></li>
+                <li><a href="#"><i class="fa-solid fa-layer-group"></i> Meus Projetos</a></li>
+                <li><a href="#" class="active"><i class="fa-solid fa-building"></i> Perfil Empresa</a></li>
+                <li><a href="#"><i class="fa-solid fa-users"></i> Freelancers</a></li>
+            </ul>
+        </nav>
+        <div class="sidebar-footer">
+            <a href="../index/index.html" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        <header class="main-header">
+            <button class="btn-menu" id="open-menu">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </header>
+
+        <section class="profile-layout">
+            
+            <aside class="profile-aside">
+                <div class="photo-card">
+                    <div class="photo-wrapper company-logo-wrapper">
+                        <button class="change-photo-btn"><i class="fa-solid fa-camera"></i></button>
+                    </div>
+                    <h2>TechSolutions Ltda</h2>
+                    <p>Desenvolvimento & TI</p>
+                    <span class="status-badge">Empresa Verificada</span>
+                </div>
+
+                <div class="stats-mini-card">
+                    <div class="stat-box"><strong>47</strong><span>Concluídos</span></div>
+                    <div class="stat-box"><strong>4.8</strong><span>Nota</span></div>
+                </div>
+
+                <div class="info-card-small">
+                    <h4>📋 Dados Fiscais</h4>
+                    <p><strong>CNPJ:</strong> 12.345.678/0001-90</p>
+                    <p><strong>Desde:</strong> 2015</p>
+                </div>
+            </aside>
+
+            <div class="profile-main-data">
+                
+                <div class="info-card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-pen-to-square"></i> Detalhes Corporativos</h3>
+                        <button class="edit-trigger" id="edit-btn">Editar Dados</button>
+                    </div>
+                    
+                    <div class="info-grid" id="info-form">
+                        <div class="info-item">
+                            <label>Nome Fantasia</label>
+                            <p class="view-mode" id="p-nome">TechSolutions Ltda</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Website</label>
+                            <p class="view-mode" id="p-site">www.techsolutions.com.br</p>
+                        </div>
+                        <div class="info-item">
+                            <label>E-mail de Contato</label>
+                            <p class="view-mode" id="p-email">contato@techsolutions.com</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Telefone</label>
+                            <p class="view-mode" id="p-tel">(11) 3456-7890</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-align-left"></i> Sobre a Empresa</h3>
+                    </div>
+                    <div id="bio-area">
+                        <p class="bio-text view-mode" id="p-bio">
+                            Empresa especializada em soluções tecnológicas inovadoras. Atuamos no mercado há 8 anos com foco em qualidade, agilidade e transformação digital para nossos clientes.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="action-footer" id="save-area" style="display: none;">
+                    <button class="btn-cancel" onclick="location.reload()">Cancelar</button>
+                    <button class="btn-save" id="save-btn">Salvar Alterações</button>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-header">
+                        <h3><i class="fa-solid fa-rocket"></i> Vagas em Aberto</h3>
+                    </div>
+                    <div class="mini-projects-list">
+                        <div class="mini-project-item">
+                            <strong>E-commerce App</strong>
+                            <span>R$ 15.000 • 3 meses</span>
+                        </div>
+                        <div class="mini-project-item">
+                            <strong>Sistema ERP</strong>
+                            <span>R$ 25.000 • 6 meses</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script src="perfilfree.js"></script>
+</body>
+</html>

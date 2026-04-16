@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - Quebragalho</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../base/base.css">
+    <link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+    <div id="overlay" class="overlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">Quebra<span>galho</span></div>
+            <button class="btn-close" id="close-menu"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#" class="active"><i class="fa-solid fa-house"></i> Início</a></li>
+                <li><a href="#"><i class="fa-solid fa-briefcase"></i> Vagas</a></li>
+                <li><a href="../perfil/perfilfre.html"><i class="fa-solid fa-user"></i> Perfil</a></li>
+                <li><a href="#"><i class="fa-solid fa-bell"></i> Notificações</a></li>
+            </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+            <a href="../index/index.html" class="logout-link"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sair</a>
+        </div>
+    </aside>
+
+    <main class="main-content">
+        
+        <header class="main-header">
+            <button class="btn-menu" id="open-menu">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+            
+            <div class="search-container">
+                <div class="search-bar">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="input-busca" placeholder="O que você está procurando?">
+                </div>
+                <button class="filter-btn">
+                    <i class="fa-solid fa-sliders"></i>
+                </button>
+            </div>
+
+            <div class="user-info">
+                <img src="../img/Icon.jpg" alt="Perfil" class="profile-pic">
+            </div>
+        </header>
+
+        <section class="feed-container">
+            <div class="feed-header">
+                <h3>Vagas para você</h3>
+                <span>Cuiabá e região</span>
+            </div>
+
+            <div id="container-vagas" class="vagas-list">
+                <div class="loading-msg">Buscando as melhores oportunidades...</div>
+            </div>
+        </section>
+
+    </main>
+
+    <a href="../vagas/criar_vaga.html" class="fab-add" title="Criar nova vaga">
+    <i class="fa-solid fa-plus"></i>
+</a>
+
+    <script src="home.js"></script>
+</body>
+</html>

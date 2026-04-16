@@ -22,48 +22,65 @@
             <form id="multi-step-form">
                 
                 <div class="form-step active" id="step-1">
-                    <h2 style="color: white; margin-bottom: 20px;">Identificação</h2>
-                    
+                    <h2 style="color: white; margin-bottom: 20px;">Dados da Empresa</h2>
                     <div class="input-group">
-                        <label>Razão Social / Nome Fantasia</label>
-                        <input type="text" id="nome-empresa" placeholder="Ex: Marcenaria Silva LTDA" required>
+                        <label>Razão Social</label>
+                        <input type="text" id="razao-social" placeholder="Nome legal da empresa" required>
                     </div>
-
+                    <div class="input-group">
+                        <label>Nome Fantasia</label>
+                        <input type="text" id="nome-fantasia" placeholder="Como a empresa é conhecida" required>
+                    </div>
                     <div class="input-group">
                         <label>CNPJ</label>
                         <input type="text" id="cnpj" placeholder="00.000.000/0000-00" maxlength="18" required>
                     </div>
-
+                    <div class="input-group">
+                        <label>Setor de Atuação</label>
+                        <input type="text" id="setor" placeholder="Ex: Construção Civil, TI, Eventos" required>
+                    </div>
                     <button type="button" class="btn-login" onclick="nextStep(2)">Próximo</button>
                 </div>
 
                 <div class="form-step" id="step-2" style="display: none;">
-                    <h2 style="color: white; margin-bottom: 20px;">Contato</h2>
-                    
+                    <h2 style="color: white; margin-bottom: 20px;">Contato e Local</h2>
+                    <div style="display: flex; gap: 10px;">
+                        <div class="input-group" style="flex: 2;">
+                            <label>Nome do Responsável</label>
+                            <input type="text" id="responsavel" placeholder="Nome do recrutador" required>
+                        </div>
+                        <div class="input-group" style="flex: 1;">
+                            <label>Cargo</label>
+                            <input type="text" id="cargo" placeholder="Ex: RH" required>
+                        </div>
+                    </div>
                     <div class="input-group">
                         <label>E-mail Corporativo</label>
                         <input type="email" id="email" placeholder="empresa@contato.com" required>
                     </div>
-
-                    <div class="input-group">
-                        <label>Telefone / WhatsApp</label>
-                        <input type="text" id="tel-empresa" placeholder="(00) 00000-0000" maxlength="15" required>
+                    <div style="display: flex; gap: 10px;">
+                        <div class="input-group" style="flex: 1;">
+                            <label>CEP</label>
+                            <input type="text" id="cep" placeholder="00000-000" maxlength="9" required>
+                        </div>
+                        <div class="input-group" style="flex: 2;">
+                            <label>Endereço Comercial</label>
+                            <input type="text" id="endereco" placeholder="Rua, número..." required>
+                        </div>
                     </div>
-
                     <div class="input-group">
-                        <label>Cidade / UF</label>
-                        <input type="text" id="localizacao" placeholder="Ex: Cuiabá - MT" required>
+                        <label>Cidade e Estado</label>
+                        <input type="text" id="cidade-estado" placeholder="Ex: Cuiabá - MT" required>
                     </div>
                     
                     <div class="btn-container" style="display: flex; gap: 10px;">
-                        <button type="button" class="btn-login" style="background-color: rgba(255, 255, 255, 0.2);" onclick="nextStep(1)">Voltar</button>
+                        <button type="button" class="btn-login" style="background-color: rgba(255,255,255,0.2);" onclick="nextStep(1)">Voltar</button>
                         <button type="button" class="btn-login" onclick="nextStep(3)">Próximo</button>
                     </div>
                 </div>
 
                 <div class="form-step" id="step-3" style="display: none;">
                     <h2 style="color: white; margin-bottom: 20px;">Segurança</h2>
-                    
                     <div class="input-group">
                         <label>Senha de Acesso</label>
                         <div class="password-wrapper" style="position: relative;">
@@ -72,7 +89,6 @@
                                style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #666;"></i>
                         </div>
                     </div>
-
                     <div class="input-group">
                         <label>Confirmar Senha</label>
                         <div class="password-wrapper" style="position: relative;">
@@ -81,18 +97,12 @@
                                style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #666;"></i>
                         </div>
                     </div>
-                    
                     <div class="btn-container" style="display: flex; gap: 10px;">
-                        <button type="button" class="btn-login" style="background-color: rgba(255, 255, 255, 0.2);" onclick="nextStep(2)">Voltar</button>
-                        <button type="submit" class="btn-login">Finalizar</button>
+                        <button type="button" class="btn-login" style="background-color: rgba(255,255,255,0.2);" onclick="nextStep(2)">Voltar</button>
+                        <button type="submit" class="btn-login">Finalizar Cadastro</button>
                     </div>
                 </div>
-
             </form>
-            
-            <div class="login-footer" style="margin-top: 25px;">
-                <a href="../index/index.html" style="color: white; text-decoration: none; font-weight: bold;">Sair do cadastro</a>
-            </div>
         </div>
     </main>
 

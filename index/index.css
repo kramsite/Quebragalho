@@ -1,157 +1,258 @@
-/* Importa as variáveis e estilos base */
-@import url('../base/base.css');
+/* ================================================================
+   ESTILOS GERAIS E VARIÁVEIS (AUTOSSUFICIENTE)
+   ================================================================ */
 
-/* Força o fundo laranja apenas na página de login */
+:root {
+    /* Paleta Principal */
+    --primary-orange: #FF8C00;    /* Laranja Quebragalho */
+    --dark-orange: #E67E22;
+    --botton-orange: #FF7F00;
+    --accent-yellow: #FFD700;    /* Amarelo de destaque */
+    
+    /* Tons Neutros */
+    --white: #FFFFFF;
+    --bg-light: #F4F7F6;
+    --text-dark: #1A1A1A;       /* Grafite quase preto para contraste premium */
+    --dark-grey: #333333;
+    --medium-grey: #666666;
+    --light-grey: #E0E0E0;
+    
+    /* Feedback */
+    --error: #FF4B2B;
+    --success: #2ECC71;
+}
+
+/* Reset básico para garantir que tudo caiba no celular */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+/* Corpo da página com fundo laranja */
 .login-page {
-    background-color: var(--primary-orange) !important;
+    background-color: var(--primary-orange);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
+    padding: 20px;
+    overflow-x: hidden;
 }
 
-/* Container centralizado - agora configurado para controlar o espaçamento interno */
+/* Container Principal */
 .login-container {
     width: 100%;
     max-width: 400px;
-    padding: 20px;
-    text-align: center;
-    min-height: 80vh; /* Define uma altura mínima para permitir o deslocamento */
     display: flex;
     flex-direction: column;
+    min-height: 85vh; /* Ajusta para respirar no mobile */
 }
 
-/* Nome do App - mantido no topo */
+/* Logotipo / Nome do App */
 .brand-name {
     color: var(--white);
-    font-size: 3.3rem;
+    font-size: 3.5rem;
     font-weight: 800;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-    padding-top: 25px; /* Garante que ele não cole no topo da tela */
-}
-
-/* Formulário - empurrado para baixo */
-.login-box {
-    background-color: transparent;
-    box-shadow: none;
-    padding: 0;
-    margin-top: 60px; /* Ajuste este valor para descer mais ou menos o login */
-    /* Dica: Se quiser que ele vá para o rodapé total, use: margin-top: auto; */
+    text-align: center;
+    letter-spacing: -2px;
+    margin-bottom: 40px;
+    text-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .brand-name span {
     color: var(--accent-yellow);
 }
 
-/* Adicione isso ao seu index.css */
-.input-group textarea {
-    width: 100%;
-    padding: 16px;
-    background-color: rgba(255, 255, 255, 0.95);
-    border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    color: var(--dark-grey);
-    outline: none;
-    transition: 0.3s;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    resize: none; /* Impede o usuário de bagunçar o layout puxando o canto */
-}
-
-.input-group textarea:focus {
-    background-color: var(--white);
-    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.6);
-}
-
-
-/* Textos brancos para contrastar com o fundo laranja */
-.login-box h2,
-.login-box p {
-    color: var(--white);
+/* Caixa de Conteúdo (Formulários) */
+.login-box {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .login-box h2 {
-    margin-top: 5px;
+    color: var(--white);
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+    font-weight: 700;
 }
 
 .login-box p {
-    opacity: 0.9;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1rem;
     margin-bottom: 30px;
 }
 
-/* Estrutura dos inputs */
+/* Agrupamento de Inputs */
 .input-group {
-    text-align: left;
-    margin-bottom: 20px;
+    margin-bottom: 22px;
+    position: relative;
+    width: 100%;
 }
 
 .input-group label {
     display: block;
-    font-size: 0.85rem;
-    font-weight: bold;
     color: var(--white);
-    margin-bottom: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
+    margin-bottom: 8px;
 }
 
-/* Estilo das caixas de texto (brancas e flutuantes) */
-.input-group input {
+/* Inputs e Textareas */
+.input-group input, 
+.input-group textarea {
     width: 100%;
     padding: 16px;
+    font-size: 16px; /* Evita zoom automático no iOS */
+    border: 2px solid transparent;
+    border-radius: 14px;
     background-color: rgba(255, 255, 255, 0.95);
-    border: none;
-    border-radius: 12px;
-    font-size: 1rem;
-    color: var(--dark-grey);
+    color: var(--text-dark);
     outline: none;
-    transition: 0.3s;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
 }
 
-/* Efeito ao clicar para digitar no input */
-.input-group input:focus {
+/* Efeito de foco */
+.input-group input:focus, 
+.input-group textarea:focus {
     background-color: var(--white);
-    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.6); /* Brilho amarelo */
     transform: translateY(-2px);
+    border-color: var(--accent-yellow);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
 }
 
-/* Botão de Entrar (Escuro para máxima elegância e contraste) */
+/* Especial para Senha (ícone do olho) */
+.password-wrapper {
+    position: relative;
+}
+
+.password-wrapper i {
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--medium-grey);
+    cursor: pointer;
+    font-size: 1.2rem;
+    z-index: 5;
+}
+
+/* Botões */
 .btn-login {
     width: 100%;
-    padding: 16px;
-    background-color: var(--botton-orange);
+    padding: 18px;
+    background-color: var(--text-dark);
     color: var(--white);
     border: none;
-    border-radius: 12px;
+    border-radius: 14px;
     font-size: 1.1rem;
-    font-weight: bold;
+    font-weight: 700;
     cursor: pointer;
-    transition: transform 0.2s, background-color 0.3s;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
     margin-top: 10px;
 }
 
 .btn-login:hover {
-    background-color: #db7800;
+    background-color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
 }
 
 .btn-login:active {
     transform: scale(0.97);
 }
 
-/* Rodapé (Esqueceu a senha / Cadastre-se) */
-.login-footer {
-    margin-top: 25px;
+/* Botão Secundário (Voltar) */
+.btn-back {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: var(--white) !important;
 }
 
-.login-footer p {
+/* Rodapé dos formulários */
+.login-footer {
+    margin-top: auto;
+    padding: 40px 0 20px;
+    text-align: center;
+}
+
+.login-footer a {
     color: var(--white);
-    opacity: 0.9;
+    text-decoration: none;
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: 0.3s;
 }
 
 .link-destaque {
-    color: var(--accent-yellow);
-    text-decoration: none;
-    font-weight: bold;
+    color: var(--accent-yellow) !important;
+    font-weight: 800;
+    opacity: 1 !important;
+    margin-left: 5px;
+}
+
+.link-destaque:hover {
+    text-decoration: underline;
+}
+
+/* Notificação Toast */
+.toast {
+    position: fixed;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 90%;
+    max-width: 350px;
+    background: var(--white);
+    padding: 16px 20px;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    z-index: 1000;
+    transition: top 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.toast.show {
+    top: 30px;
+}
+
+.toast i {
+    color: var(--error);
+    font-size: 1.4rem;
+}
+
+.toast span {
+    color: var(--text-dark);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* Animações de transição de passos */
+.form-step {
+    display: none;
+    animation: slideIn 0.4s ease-out;
+}
+
+.form-step.active {
+    display: block;
+}
+
+@keyframes slideIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* Ajustes para Telas Muito Pequenas */
+@media (max-height: 600px) {
+    .brand-name { font-size: 2.5rem; margin-bottom: 20px; }
+    .login-container { min-height: auto; }
 }

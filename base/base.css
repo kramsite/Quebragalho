@@ -1,117 +1,210 @@
+/* ================================================================
+   BASE CSS - IDENTIDADE VISUAL QUEBRAGALHO
+   ================================================================ */
 
-
-/* base/base.css */
 :root {
-    --primary-orange: #FF8C00;
-    --accent-yellow: #FFD700;
-    --dark-grey: #333;
-    --light-grey: #f4f4f4;
-    --white: #ffffff;
-    --transition: 0.3s ease-in-out;
-    --botton-orange: #eda144;
+    --primary-orange: #FF8C00; /* Laranja Principal */
+    --dark-orange: #E67E00;
+    --bg-white: #ffffff;
+    --bg-light: #f8f9fa;
+    --text-dark: #1a1a1a; /* Cinza quase preto para leitura */
+    --text-light: #ffffff;
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
 }
 
 body {
-    background-color: var(--light-grey);
-    color: var(--dark-grey);
+    background-color: var(--bg-light);
+    color: var(--text-dark);
 }
 
-/* Header Global */
+/* --- HEADER FIXO (No topo da tela) --- */
 .main-header {
-    background-color: var(--primary-orange);
-    height: 60px;
+    background-color: var(--bg-white);
+    height: 70px;
     display: flex;
     align-items: center;
     padding: 0 20px;
-    color: var(--white);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
 }
 
+/* Logo no Header Principal */
 .logo {
-    font-size: 1.5rem;
-    font-weight: bold;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: rgb(255, 255, 255);
     margin-left: 15px;
+    letter-spacing: -1px;
 }
 
-.logo span { color: var(--accent-yellow); }
+.logo span {
+    color: #000000;
+}
 
-/* Menu Hambúrguer */
+/* Botão do Menu (Hambúrguer) */
 .btn-menu {
     background: none;
     border: none;
+    font-size: 1.6rem;
+    color: var(--text-dark);
     cursor: pointer;
     display: flex;
-    flex-direction: column;
-    gap: 4px;
+    align-items: center;
+    transition: color 0.2s;
 }
 
-.btn-menu span {
-    display: block;
-    width: 22px;
-    height: 3px;
-    background-color: var(--white);
-    border-radius: 2px;
+.btn-menu:hover {
+    color: var(--primary-orange);
 }
 
-/* Sidebar */
+/* --- SIDEBAR (Menu Lateral Laranja) --- */
 .sidebar {
     position: fixed;
-    left: -280px;
+    left: -320px; /* Escondido */
     top: 0;
-    width: 280px;
+    width: 300px;
     height: 100%;
-    background-color: var(--white);
-    z-index: 1000;
+    background-color: var(--primary-orange); /* Menu Laranja */
+    z-index: 1001;
     transition: var(--transition);
-    box-shadow: 5px 0 15px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 10px 0 30px rgba(0,0,0,0.1);
 }
 
-.sidebar.active { left: 0; }
+.sidebar.active {
+    left: 0;
+}
 
+/* Cabeçalho do Menu Lateral */
 .sidebar-header {
-    background-color: var(--primary-orange);
-    padding: 20px;
-    color: var(--white);
+    padding: 40px 25px 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
+/* Nome Quebragalho na Sidebar (Maior e Alinhado) */
+.logo-sidebar {
+    font-size: 2.2rem; /* Tamanho imponente */
+    font-weight: 900;
+    color: var(--text-light); /* Branco no laranja */
+    letter-spacing: -1.5px;
+    text-align: left;
+}
+
+.logo-sidebar span {
+    color: var(--text-dark); /* O "galho" em preto para contraste */
+    opacity: 0.9;
+}
+
+/* Botão de Fechar Menu */
 .btn-close {
-    background: none;
+    background: rgba(255, 255, 255, 0.2);
     border: none;
-    color: var(--white);
-    font-size: 2rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    color: var(--text-light);
+    font-size: 1.2rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
 }
 
-.sidebar ul { list-style: none; margin-top: 20px; }
+.btn-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
 
-.sidebar ul li a {
-    display: block;
-    padding: 15px 20px;
+/* --- LINKS DE NAVEGAÇÃO DA SIDEBAR --- */
+.sidebar-nav {
+    flex-grow: 1;
+    padding: 10px 15px;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+}
+
+.sidebar-nav ul li {
+    margin-bottom: 8px;
+}
+
+.sidebar-nav ul li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 20px;
     text-decoration: none;
-    color: var(--dark-grey);
-    border-bottom: 1px solid #eee;
+    color: var(--text-light);
+    font-weight: 600;
+    font-size: 1.1rem;
+    border-radius: 15px;
+    transition: all 0.2s ease;
 }
 
+/* Link Ativo ou Hover */
+.sidebar-nav ul li a:hover, 
+.sidebar-nav ul li a.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateX(8px);
+}
+
+/* --- RODAPÉ DA SIDEBAR --- */
+.sidebar-footer {
+    padding: 30px 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logout-link {
+    color: var(--text-light) !important;
+    text-decoration: none;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: opacity 0.2s;
+}
+
+.logout-link:hover {
+    opacity: 0.8;
+}
+
+/* --- OVERLAY (Fundo Escuro ao abrir menu) --- */
 .overlay {
     position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px); /* Efeito moderno de desfoque */
     display: none;
-    z-index: 999;
+    z-index: 1000;
 }
 
-.overlay.active { display: block; }
+.overlay.active {
+    display: block;
+}
+
+/* --- IMAGEM DE PERFIL --- */
+.profile-pic {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-orange);
+}

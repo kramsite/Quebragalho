@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - Quebragalho</title>
-    <link rel="stylesheet" href="../base/base.css">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -21,7 +20,11 @@
                 
                 <div class="input-group">
                     <label>Senha</label>
-                    <input type="password" placeholder="••••••••" required>
+                    <div class="password-wrapper" style="position: relative;">
+                        <input type="password" id="senha-login" placeholder="••••••••" required>
+                        <i class="fa-solid fa-eye" onclick="togglePassword('senha-login', this)" 
+                        style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #666;"></i>
+                    </div>
                 </div>
                 
                 <button type="submit" class="btn-login">Acessar</button>
@@ -34,4 +37,6 @@
     </main>
 
 </body>
+
+<script src="script.js"></script>
 </html>

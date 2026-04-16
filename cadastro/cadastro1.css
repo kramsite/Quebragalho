@@ -1,125 +1,207 @@
-@import url('../base/base.css');
+/* ================================================================
+   ESTILOS DE SELEÇÃO - QUEBRAGALHO (PROFESSIONAL & CLEAN)
+   ================================================================ */
+
+:root {
+    --primary-orange: #FF8C00;    /* Fundo da página */
+    --botton-orange: #db7800;     /* Cor dos botões */
+    --accent-yellow: #FFD700;     /* Detalhe no nome */
+    --dark-grey: #333333;         /* Texto dos inputs */
+    --white: #FFFFFF;
+}
+
+/* Reset de Sistema */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
 .cadastro-page {
-    background-color: var(--primary-orange) !important;
+    background-color: var(--primary-orange);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0;
+    padding: 24px;
 }
 
 .cadastro-container {
     width: 100%;
-    max-width: 500px;
-    padding: 20px;
-    text-align: center;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
 }
 
+/* Marca - Tipografia Minimalista */
 .brand-name {
     color: var(--white);
-    font-size: 2.5rem;
+    font-size: 3rem;
     font-weight: 800;
-    margin-bottom: 20px;
+    text-align: center;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+    padding-top: 10px;
+    flex-shrink: 0; /* Impede que o título seja esmagado */
 }
 
-.brand-name span { color: var(--accent-yellow); }
+.brand-name span {
+    color: var(--accent-yellow);
+}
+
+/* Cabeçalho de Seleção */
+.selection-box {
+    text-align: center;
+    margin-bottom: 32px;
+}
 
 .selection-box h2 {
     color: var(--white);
-    margin-bottom: 10px;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 8px;
 }
 
 .selection-box p {
-    color: var(--white);
-    opacity: 0.9;
-    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    
 }
 
-/* Estilo do container do ícone */
+/* Container de Cards */
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Card de Opção - Estilo "Clean Canvas" */
+.option-card {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: var(--shadow-soft);
+    border: 1px solid transparent; /* Bordas sutis no lugar de grossas */
+    position: relative;
+    overflow: hidden;
+}
+
+/* Box do Ícone - Minimalista */
 .icon-box {
-    width: 60px;
-    height: 60px;
-    background-color: var(--light-grey);
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    background-color: var(--bg-icon);
     border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 15px;
     transition: var(--transition);
 }
 
-/* O ícone em si */
 .icon-box i {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     color: var(--primary-orange);
+    transition: var(--transition);
 }
 
-/* Efeito quando passa o mouse ou toca no card */
+/* Textos do Card */
+.option-info h3 {
+    color: var(--text-main);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.option-info p {
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    line-height: 1.4;
+}
+
+/* Interações (Hover) */
+.option-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
+    border-color: rgba(255, 140, 0, 0.1); /* Brilho laranja muito sutil na borda */
+}
+
+/* O "Pulo do Gato" no Hover */
 .option-card:hover .icon-box {
-    background-color: var(--accent-yellow);
+    background-color: var(--primary-orange);
 }
 
 .option-card:hover .icon-box i {
     color: var(--white);
+    transform: scale(1.1);
 }
 
-/* Melhoria no título do card */
-.option-card h3 {
-    color: var(--dark-grey); /* Cor mais sóbria para o título */
-    font-weight: 700;
-    margin-bottom: 6px;
+.option-card:active {
+    transform: translateY(-2px) scale(0.98);
 }
 
-/* Container das opções */
-.options {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-/* Cards de Opção */
-.option-card {
-    background-color: var(--white);
-    padding: 15px;
-    border-radius: 15px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.3s;
-    text-align: left;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-    border: 3px solid transparent;
-}
-
-.option-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--accent-yellow);
-}
-
-.option-card .icon {
-    font-size: 2.5rem;
-    margin-bottom: 10px;
-}
-
-.option-card h3 {
-    color: var(--primary-orange);
-    margin-bottom: 5px;
-}
-
-.option-card p {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 0;
-}
-
+/* Rodapé */
 .login-footer {
-    margin-top: 20px;
+    margin-top: 48px;
+    text-align: center;
 }
 
-.login-footer p { color: var(--white); }
+.login-footer p {
+    color: var(--white);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
 
 .link-destaque {
     color: var(--accent-yellow);
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 700;
+    margin-left: 6px;
+    position: relative;
+}
+
+.link-destaque::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--accent-yellow);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.link-destaque:hover::after {
+    transform: scaleX(1);
+}
+
+/* Otimização para Mobile */
+@media (max-width: 480px) {
+    .cadastro-page {
+        padding: 16px;
+    }
+    
+    .brand-name {
+        font-size: 2.2rem;
+        margin-bottom: 30px;
+    }
+
+    .option-card {
+        padding: 16px;
+        gap: 16px;
+    }
+
+    .icon-box {
+        width: 48px;
+        height: 48px;
+        min-width: 48px;
+    }
 }
