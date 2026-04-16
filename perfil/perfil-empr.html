@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Perfil da Empresa - Quebragalho</title>
+    <link rel="stylesheet" href="../base/base.css">
+    <link rel="stylesheet" href="perfil.css">
+    <style>
+        /* Estilos específicos para o perfil da empresa */
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+            flex: 1;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary:hover {
+            background: #db7800;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-orange);
+            color: var(--primary-orange);
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-orange);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .project-card {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .delete-item {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(244, 67, 54, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-card:hover .delete-item,
+        .feedback-item:hover .delete-item {
+            display: flex;
+        }
+
+        .feedback-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+
+        .feedback-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            color: #FFD700;
+        }
+
+        .info-item {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--dark-grey);
+            min-width: 70px;
+        }
+
+        .info-value {
+            color: #666;
+            word-break: break-word;
+            flex: 1;
+        }
+
+        .stat {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-orange);
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .btn-edit {
+            background: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-edit:hover {
+            background: #db7800;
+            transform: translateY(-2px);
+        }
+
+        .btn-save, .btn-cancel {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-save {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .btn-cancel {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .edit-mode .input-group input,
+        .edit-mode .input-group textarea {
+            background: white;
+            border-color: var(--primary-orange);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .company-logo-large {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-orange), var(--accent-yellow));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            margin: 0 auto 20px;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .company-logo-large:hover {
+            transform: scale(1.05);
+        }
+
+        .view-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #4CAF50;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            text-align: center;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="profile-page company-profile">
+    <main class="profile-container">
+        <header class="profile-header">
+            <div class="header-top">
+                <h1 class="brand-name">Quebra<span>galho</span></h1>
+                <nav class="nav-menu">
+                    <a href="#" class="nav-link active">Meu Perfil</a>
+                    <a href="#" class="nav-link">Projetos</a>
+                    <a href="#" class="nav-link">Freelancers</a>
+                    <a href="#" class="nav-link">Mensagens</a>
+                </nav>
+                <div class="user-menu">
+                    <span class="user-name" id="headerCompanyName">TechSolutions</span>
+                    <div class="avatar company-avatar" id="headerAvatar">T</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="profile-content">
+            <!-- Sidebar Esquerda -->
+            <aside class="profile-sidebar">
+                <div class="company-logo-section">
+                    <div class="company-logo-large" id="companyLogo" onclick="changeLogo()">T</div>
+                    <button class="btn-upload-logo" onclick="changeLogo()">📸 Alterar Logo</button>
+                    <div class="view-badge">Perfil da Empresa</div>
+                </div>
+
+                <div class="info-card">
+                    <h3>📋 Informações da Empresa</h3>
+                    <div id="companyInfoContainer"></div>
+                </div>
+
+                <div class="stats-card">
+                    <h3>📊 Estatísticas</h3>
+                    <div class="stat">
+                        <span class="stat-number" id="projectsCompleted">47</span>
+                        <span class="stat-label">Projetos Concluídos</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="averageRating">4.8</span>
+                        <span class="stat-label">Avaliação Média</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="activeProjects">12</span>
+                        <span class="stat-label">Projetos Ativos</span>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Conteúdo Central -->
+            <div class="profile-main">
+                <section class="edit-section">
+                    <div class="section-header">
+                        <h2>🏢 Perfil da Empresa</h2>
+                        <button class="btn-edit" id="editBtn" onclick="toggleEdit()">✏️ Editar Perfil</button>
+                    </div>
+
+                    <form id="form-company-profile" class="profile-form">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Nome da Empresa *</label>
+                                <input type="text" id="companyName" value="TechSolutions Ltda" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label>E-mail Corporativo *</label>
+                                <input type="email" id="companyEmail" value="contato@techsolutions.com" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Telefone</label>
+                                <input type="tel" id="companyPhone" value="(11) 3456-7890" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label>Website</label>
+                                <input type="url" id="companyWebsite" value="www.techsolutions.com.br" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>CNPJ</label>
+                                <input type="text" id="companyCnpj" value="12.345.678/0001-90" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label>Ano de Fundação</label>
+                                <input type="text" id="companyFoundation" value="2015" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Porte da Empresa</label>
+                                <input type="text" id="companySize" value="Médio Porte" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label>Setor de Atuação</label>
+                                <input type="text" id="companySector" value="Tecnologia da Informação" disabled>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Endereço</label>
+                            <input type="text" id="companyAddress" value="Av. Paulista, 1000 - São Paulo, SP" disabled>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Descrição da Empresa</label>
+                            <textarea id="companyDescription" rows="4" disabled>Empresa especializada em soluções tecnológicas inovadoras. Atuamos no mercado há 8 anos com foco em qualidade e inovação. Buscamos freelancers talentosos para projetos desafiadores. Temos uma cultura colaborativa e valorizamos o trabalho remoto.</textarea>
+                        </div>
+
+                        <div class="button-group" id="buttonGroup" style="display: none;">
+                            <button type="button" class="btn-save" onclick="saveProfile()">💾 Salvar Alterações</button>
+                            <button type="button" class="btn-cancel" onclick="cancelEdit()">❌ Cancelar</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Seção de Projetos em Destaque -->
+                <section class="projects-section">
+                    <div class="section-header">
+                        <h2>🚀 Projetos em Destaque</h2>
+                        <button class="btn-edit" onclick="addProject()">+ Adicionar Projeto</button>
+                    </div>
+                    <div class="projects-grid" id="projects-container"></div>
+                </section>
+
+                <!-- Seção de Depoimentos -->
+                <section class="testimonials-section">
+                    <div class="section-header">
+                        <h2>⭐ Depoimentos de Freelancers</h2>
+                        <button class="btn-edit" onclick="addTestimonial()">+ Adicionar Depoimento</button>
+                    </div>
+                    <div id="testimonials-container"></div>
+                </section>
+            </div>
+
+            <!-- Sidebar Direita -->
+            <aside class="profile-sidebar-right">
+                <div class="reviews-card">
+                    <h3>⭐ Avaliações de Freelancers</h3>
+                    <div id="reviews-container"></div>
+                </div>
+
+                <div class="availability-card">
+                    <h3>📈 Benefícios</h3>
+                    <div id="benefits-container"></div>
+                    <button class="btn-add-skill" onclick="addBenefit()" style="margin-top: 15px;">+ Adicionar Benefício</button>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        // Dados iniciais da empresa
+        let companyData = {
+            // Informações básicas
+            companyName: "TechSolutions Ltda",
+            companyEmail: "contato@techsolutions.com",
+            companyPhone: "(11) 3456-7890",
+            companyWebsite: "www.techsolutions.com.br",
+            companyCnpj: "12.345.678/0001-90",
+            companyFoundation: "2015",
+            companySize: "Médio Porte",
+            companySector: "Tecnologia da Informação",
+            companyAddress: "Av. Paulista, 1000 - São Paulo, SP",
+            companyDescription: "Empresa especializada em soluções tecnológicas inovadoras. Atuamos no mercado há 8 anos com foco em qualidade e inovação. Buscamos freelancers talentosos para projetos desafiadores. Temos uma cultura colaborativa e valorizamos o trabalho remoto.",
+            logo: "T",
+            
+            // Estatísticas
+            stats: {
+                projectsCompleted: 47,
+                averageRating: 4.8,
+                activeProjects: 12
+            },
+            
+            // Projetos
+            projects: [
+                { name: "E-commerce App", description: "Desenvolvimento de aplicativo mobile para loja virtual", value: "R$ 15.000", deadline: "3 meses" },
+                { name: "Sistema ERP", description: "Implementação de sistema integrado de gestão", value: "R$ 25.000", deadline: "6 meses" },
+                { name: "Chatbot IA", description: "Desenvolvimento de assistente virtual com IA", value: "R$ 12.000", deadline: "2 meses" }
+            ],
+            
+            // Depoimentos
+            testimonials: [
+                { name: "João Silva", role: "Desenvolvedor", comment: "Excelente empresa para trabalhar! Pagamento sempre em dia e comunicação clara." },
+                { name: "Maria Santos", role: "Designer", comment: "Times organizados e projetos desafiadores. Recomendo!" },
+                { name: "Pedro Costa", role: "UX Designer", comment: "Ambiente profissional e respeitoso. Ótima parceria!" }
+            ],
+            
+            // Avaliações
+            reviews: [
+                { freelancer: "João Silva", rating: 5, comment: "Empresa muito organizada e profissional.", date: "Há 1 mês" },
+                { freelancer: "Maria Santos", rating: 4, comment: "Ótima comunicação e pagamento pontual.", date: "Há 2 semanas" },
+                { freelancer: "Pedro Costa", rating: 5, comment: "Projetos interessantes e equipe receptiva.", date: "Há 3 meses" },
+                { freelancer: "Ana Carolina", rating: 5, comment: "Excelente empresa para fazer parceria!", date: "Há 1 semana" }
+            ],
+            
+            // Benefícios
+            benefits: [
+                "✅ Pagamento em dia",
+                "✅ Trabalho remoto",
+                "✅ Horário flexível",
+                "✅ Feedback construtivo",
+                "✅ Oportunidades recorrentes"
+            ]
+        };
+
+        // Carregar dados do localStorage
+        function loadData() {
+            const saved = localStorage.getItem('companyProfile');
+            if (saved) {
+                companyData = JSON.parse(saved);
+            }
+            renderAll();
+        }
+
+        // Salvar dados no localStorage
+        function saveData() {
+            localStorage.setItem('companyProfile', JSON.stringify(companyData));
+            showToast('✅ Dados salvos com sucesso!');
+        }
+
+        // Renderizar todos os componentes
+        function renderAll() {
+            // Informações básicas
+            document.getElementById('companyName').value = companyData.companyName;
+            document.getElementById('companyEmail').value = companyData.companyEmail;
+            document.getElementById('companyPhone').value = companyData.companyPhone;
+            document.getElementById('companyWebsite').value = companyData.companyWebsite;
+            document.getElementById('companyCnpj').value = companyData.companyCnpj;
+            document.getElementById('companyFoundation').value = companyData.companyFoundation;
+            document.getElementById('companySize').value = companyData.companySize;
+            document.getElementById('companySector').value = companyData.companySector;
+            document.getElementById('companyAddress').value = companyData.companyAddress;
+            document.getElementById('companyDescription').value = companyData.companyDescription;
+            
+            // Header
+            document.getElementById('headerCompanyName').textContent = companyData.companyName.split(' ')[0];
+            document.getElementById('headerAvatar').textContent = companyData.logo;
+            document.getElementById('companyLogo').textContent = companyData.logo;
+            
+            // Estatísticas
+            document.getElementById('projectsCompleted').textContent = companyData.stats.projectsCompleted;
+            document.getElementById('averageRating').textContent = companyData.stats.averageRating;
+            document.getElementById('activeProjects').textContent = companyData.stats.activeProjects;
+            
+            // Informações da empresa (sidebar)
+            renderCompanyInfo();
+            
+            // Projetos
+            renderProjects();
+            
+            // Depoimentos
+            renderTestimonials();
+            
+            // Avaliações
+            renderReviews();
+            
+            // Benefícios
+            renderBenefits();
+        }
+        
+        function renderCompanyInfo() {
+            const container = document.getElementById('companyInfoContainer');
+            container.innerHTML = `
+                <div class="info-item">
+                    <span class="info-label">CNPJ:</span>
+                    <span class="info-value">${companyData.companyCnpj}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Fundação:</span>
+                    <span class="info-value">${companyData.companyFoundation}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Porte:</span>
+                    <span class="info-value">${companyData.companySize}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Setor:</span>
+                    <span class="info-value">${companyData.companySector}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">Endereço:</span>
+                    <span class="info-value">${companyData.companyAddress}</span>
+                </div>
+            `;
+        }
+        
+        function renderProjects() {
+            const container = document.getElementById('projects-container');
+            container.innerHTML = '';
+            companyData.projects.forEach((project, index) => {
+                const div = document.createElement('div');
+                div.className = 'project-card';
+                div.innerHTML = `
+                    <button class="delete-item" onclick="deleteProject(${index})">×</button>
+                    <h3>${project.name}</h3>
+                    <p>${project.description}</p>
+                    <div class="project-meta">
+                        <span>💰 ${project.value}</span>
+                        <span>⏰ ${project.deadline}</span>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        function renderTestimonials() {
+            const container = document.getElementById('testimonials-container');
+            container.innerHTML = '';
+            companyData.testimonials.forEach((testimonial, index) => {
+                const div = document.createElement('div');
+                div.className = 'feedback-item';
+                div.innerHTML = `
+                    <button class="delete-item" onclick="deleteTestimonial(${index})">×</button>
+                    <div class="feedback-header">
+                        <strong>${testimonial.name}</strong>
+                        <span>${testimonial.role}</span>
+                    </div>
+                    <p>"${testimonial.comment}"</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        function renderReviews() {
+            const container = document.getElementById('reviews-container');
+            container.innerHTML = '';
+            companyData.reviews.forEach(review => {
+                const div = document.createElement('div');
+                div.className = 'review-item';
+                const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+                div.innerHTML = `
+                    <div class="review-header">
+                        <strong>${review.freelancer}</strong>
+                        <div class="rating">${stars}</div>
+                    </div>
+                    <p>"${review.comment}"</p>
+                    <small>📅 ${review.date}</small>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        function renderBenefits() {
+            const container = document.getElementById('benefits-container');
+            container.innerHTML = '';
+            companyData.benefits.forEach((benefit, index) => {
+                const div = document.createElement('div');
+                div.style.cssText = 'display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding: 8px; background: #f9f9f9; border-radius: 8px;';
+                div.innerHTML = `
+                    <span>${benefit}</span>
+                    <button onclick="removeBenefit(${index})" style="background: #f44336; color: white; border: none; border-radius: 50%; width: 25px; height: 25px; cursor: pointer;">×</button>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        // Funções de edição
+        function toggleEdit() {
+            const inputs = document.querySelectorAll('#form-company-profile input, #form-company-profile textarea');
+            const buttonGroup = document.getElementById('buttonGroup');
+            const editBtn = document.getElementById('editBtn');
+            
+            const isEditing = buttonGroup.style.display === 'flex';
+            
+            if (isEditing) {
+                cancelEdit();
+            } else {
+                inputs.forEach(input => {
+                    input.disabled = false;
+                });
+                buttonGroup.style.display = 'flex';
+                editBtn.textContent = 'Cancelar Edição';
+                document.querySelector('.profile-main').classList.add('edit-mode');
+            }
+        }
+        
+        function saveProfile() {
+            // Salvar dados do formulário
+            companyData.companyName = document.getElementById('companyName').value;
+            companyData.companyEmail = document.getElementById('companyEmail').value;
+            companyData.companyPhone = document.getElementById('companyPhone').value;
+            companyData.companyWebsite = document.getElementById('companyWebsite').value;
+            companyData.companyCnpj = document.getElementById('companyCnpj').value;
+            companyData.companyFoundation = document.getElementById('companyFoundation').value;
+            companyData.companySize = document.getElementById('companySize').value;
+            companyData.companySector = document.getElementById('companySector').value;
+            companyData.companyAddress = document.getElementById('companyAddress').value;
+            companyData.companyDescription = document.getElementById('companyDescription').value;
+            companyData.logo = companyData.companyName.charAt(0).toUpperCase();
+            
+            saveData();
+            renderAll();
+            cancelEdit();
+            showToast('✅ Perfil da empresa atualizado com sucesso!');
+        }
+        
+        function cancelEdit() {
+            const inputs = document.querySelectorAll('#form-company-profile input, #form-company-profile textarea');
+            const buttonGroup = document.getElementById('buttonGroup');
+            const editBtn = document.getElementById('editBtn');
+            
+            inputs.forEach(input => {
+                input.disabled = true;
+            });
+            buttonGroup.style.display = 'none';
+            editBtn.textContent = '✏️ Editar Perfil';
+            document.querySelector('.profile-main').classList.remove('edit-mode');
+            
+            renderAll();
+        }
+        
+        function changeLogo() {
+            const newLogo = prompt('Digite a inicial para o logo da empresa:', companyData.logo);
+            if (newLogo && newLogo.length === 1) {
+                companyData.logo = newLogo.toUpperCase();
+                saveData();
+                renderAll();
+                showToast('✅ Logo atualizado!');
+            }
+        }
+        
+        function addProject() {
+            const name = prompt('Nome do projeto:');
+            const description = prompt('Descrição do projeto:');
+            const value = prompt('Valor do projeto (ex: R$ 15.000):');
+            const deadline = prompt('Prazo (ex: 3 meses):');
+            
+            if (name && description) {
+                companyData.projects.push({ 
+                    name, 
+                    description, 
+                    value: value || 'A combinar', 
+                    deadline: deadline || 'A definir' 
+                });
+                saveData();
+                renderProjects();
+                showToast('✅ Projeto adicionado!');
+            }
+        }
+        
+        function deleteProject(index) {
+            if (confirm('Remover este projeto?')) {
+                companyData.projects.splice(index, 1);
+                saveData();
+                renderProjects();
+                showToast('✅ Projeto removido!');
+            }
+        }
+        
+        function addTestimonial() {
+            const name = prompt('Nome do freelancer:');
+            const role = prompt('Profissão:');
+            const comment = prompt('Depoimento:');
+            
+            if (name && comment) {
+                companyData.testimonials.push({ name, role: role || 'Freelancer', comment });
+                saveData();
+                renderTestimonials();
+                showToast('✅ Depoimento adicionado!');
+            }
+        }
+        
+        function deleteTestimonial(index) {
+            if (confirm('Remover este depoimento?')) {
+                companyData.testimonials.splice(index, 1);
+                saveData();
+                renderTestimonials();
+                showToast('✅ Depoimento removido!');
+            }
+        }
+        
+        function addBenefit() {
+            const benefit = prompt('Digite o benefício (ex: Vale alimentação):');
+            if (benefit && benefit.trim()) {
+                companyData.benefits.push(`✅ ${benefit.trim()}`);
+                saveData();
+                renderBenefits();
+                showToast('✅ Benefício adicionado!');
+            }
+        }
+        
+        function removeBenefit(index) {
+            if (confirm('Remover este benefício?')) {
+                companyData.benefits.splice(index, 1);
+                saveData();
+                renderBenefits();
+                showToast('✅ Benefício removido!');
+            }
+        }
+        
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+        
+        // Inicializar
+        loadData();
+    </script>
+
+    <script src="/dado.js"></script>
+</body>
+</html>

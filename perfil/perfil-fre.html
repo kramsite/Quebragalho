@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Perfil do Freelancer - Quebragalho</title>
+    <link rel="stylesheet" href="../base/base.css">
+    <link rel="stylesheet" href="perfil.css">
+    <style>
+        /* Estilos específicos para o perfil do freelancer */
+        .availability-status.available {
+            background: #e8f5e9;
+            color: #4CAF50;
+        }
+
+        .availability-status.busy {
+            background: #fff3e0;
+            color: #ff9800;
+        }
+
+        .availability-status {
+            transition: all 0.3s ease;
+        }
+
+        .btn-change-status {
+            background: transparent;
+            border: 1px solid var(--primary-orange);
+            color: var(--primary-orange);
+            padding: 5px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+
+        .btn-change-status:hover {
+            background: var(--primary-orange);
+            color: white;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .portfolio-item {
+            background: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .portfolio-preview {
+            background: linear-gradient(135deg, var(--primary-orange), var(--accent-yellow));
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .portfolio-info {
+            padding: 12px;
+        }
+
+        .portfolio-info h4 {
+            margin-bottom: 5px;
+            color: var(--dark-grey);
+        }
+
+        .delete-item {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(244, 67, 54, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: none;
+        }
+
+        .portfolio-item:hover .delete-item,
+.experience-item:hover .delete-item,
+.education-item:hover .delete-item,
+.certificate-item:hover .delete-item,
+.language-item:hover .delete-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .certificate-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            background: #f9f9f9;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .certificate-item:hover {
+            background: #f0f0f0;
+            transform: translateX(5px);
+        }
+
+        .certificate-icon {
+            font-size: 2rem;
+        }
+
+        .certificate-info {
+            flex: 1;
+        }
+
+        .language-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            position: relative;
+        }
+
+        .language-name {
+            font-weight: 600;
+        }
+
+        .language-level {
+            color: var(--primary-orange);
+            font-size: 0.85rem;
+        }
+
+        .time-on-site {
+            background: linear-gradient(135deg, var(--primary-orange), var(--accent-yellow));
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .time-on-site .days {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .skill-tag {
+            cursor: pointer;
+            position: relative;
+        }
+
+        .skill-tag:hover {
+            background: #f44336;
+            color: white;
+        }
+
+        .edit-mode .input-group input,
+        .edit-mode .input-group textarea {
+            background: white;
+            border-color: var(--primary-orange);
+        }
+
+        .btn-save, .btn-cancel {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-save {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-save:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .btn-cancel {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .certificate-item {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .language-item {
+                flex-direction: column;
+                gap: 5px;
+                text-align: center;
+            }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body class="profile-page freelancer-profile">
+    <main class="profile-container">
+        <header class="profile-header">
+            <div class="header-top">
+                <h1 class="brand-name">Quebra<span>galho</span></h1>
+                <nav class="nav-menu">
+                    <a href="#" class="nav-link active">Meu Perfil</a>
+                    <a href="#" class="nav-link">Portfólio</a>
+                    <a href="#" class="nav-link">Propostas</a>
+                    <a href="#" class="nav-link">Mensagens</a>
+                    <a href="#" class="nav-link">Financeiro</a>
+                </nav>
+                <div class="user-menu">
+                    <span class="user-name" id="headerUserName">Ana Carolina</span>
+                    <div class="avatar freelancer-avatar" id="headerAvatar">A</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="profile-content">
+            <!-- Sidebar Esquerda -->
+            <aside class="profile-sidebar">
+                <div class="freelancer-photo-section">
+                    <div class="freelancer-photo-large" id="profileAvatar">A</div>
+                    <button class="btn-upload-photo" onclick="changePhoto()">📸 Alterar Foto</button>
+                </div>
+
+                <div class="time-on-site">
+                    <span class="days" id="timeOnSite">2 anos e 3 meses</span>
+                    <span class="label">📅 Tempo no Quebragalho</span>
+                </div>
+
+                <div class="skills-card">
+                    <h3>🛠️ Habilidades Técnicas</h3>
+                    <div class="skills-tags" id="skills-container"></div>
+                    <button class="btn-add-skill" onclick="addNewSkill()">+ Adicionar Habilidade</button>
+                </div>
+
+                <div class="stats-card">
+                    <h3>📊 Estatísticas</h3>
+                    <div class="stat">
+                        <span class="stat-number" id="projectsCompleted">89</span>
+                        <span class="stat-label">Projetos Completos</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="averageRating">4.9</span>
+                        <span class="stat-label">Avaliação Média</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="ongoingProjects">6</span>
+                        <span class="stat-label">Em Andamento</span>
+                    </div>
+                </div>
+
+                <div class="availability-card">
+                    <h3>⏰ Disponibilidade</h3>
+                    <div class="availability-status available" id="availability-status">
+                        <span class="status-dot"></span>
+                        Disponível para projetos
+                    </div>
+                    <p>📅 Carga horária: <span id="workHours">30h/semana</span></p>
+                    <p>🚀 Início imediato</p>
+                    <button class="btn-change-status" onclick="toggleAvailability()">Alterar Status</button>
+                </div>
+            </aside>
+
+            <!-- Conteúdo Central -->
+            <div class="profile-main">
+                <section class="edit-section">
+                    <div class="section-header">
+                        <h2>👩‍💻 Perfil Profissional</h2>
+                        <button class="btn-edit" id="editBtn" onclick="toggleEdit()">✏️ Editar Perfil</button>
+                    </div>
+
+                    <form id="form-freelancer-profile" class="profile-form">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Nome Completo *</label>
+                                <input type="text" id="fullName" value="Ana Carolina Silva Santos" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label>E-mail *</label>
+                                <input type="email" id="email" value="ana.carolina@email.com" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Idade</label>
+                                <input type="number" id="age" value="28" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label>Profissão</label>
+                                <input type="text" id="profession" value="Desenvolvedora Full Stack" disabled>
+                            </div>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Biografia</label>
+                            <textarea id="bio" rows="4" disabled>Desenvolvedora full stack com 6 anos de experiência. Especializada em React, Node.js e Python. Apaixonada por criar soluções inovadoras e interfaces intuitivas. Disponível para projetos freelance e consultorias. Já trabalhei com mais de 50 clientes em 5 países diferentes.</textarea>
+                        </div>
+
+                        <div class="button-group" id="buttonGroup" style="display: none;">
+                            <button type="button" class="btn-save" onclick="saveProfile()">💾 Salvar Alterações</button>
+                            <button type="button" class="btn-cancel" onclick="cancelEdit()">❌ Cancelar</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Seção de Portfólio -->
+                <section class="portfolio-section">
+                    <div class="section-header">
+                        <h2>🎨 Portfólio Recente</h2>
+                        <button class="btn-edit" onclick="addPortfolio()">+ Adicionar Projeto</button>
+                    </div>
+                    <div class="portfolio-grid" id="portfolio-container"></div>
+                </section>
+
+                <!-- Seção de Experiência -->
+                <section class="experience-section">
+                    <div class="section-header">
+                        <h2>💼 Experiência Profissional</h2>
+                        <button class="btn-edit" onclick="addExperience()">+ Adicionar Experiência</button>
+                    </div>
+                    <div id="experience-container"></div>
+                </section>
+
+                <!-- Seção de Educação -->
+                <section class="education-section">
+                    <div class="section-header">
+                        <h2>🎓 Formação Acadêmica</h2>
+                        <button class="btn-edit" onclick="addEducation()">+ Adicionar Formação</button>
+                    </div>
+                    <div id="education-container"></div>
+                </section>
+
+                <!-- Seção de Certificados -->
+                <section class="certificates-section">
+                    <div class="section-header">
+                        <h2>🏆 Certificações</h2>
+                        <button class="btn-edit" onclick="addCertificate()">+ Adicionar Certificado</button>
+                    </div>
+                    <div id="certificates-container"></div>
+                </section>
+
+                <!-- Seção de Idiomas -->
+                <section class="languages-section">
+                    <div class="section-header">
+                        <h2>🌐 Idiomas</h2>
+                        <button class="btn-edit" onclick="addLanguage()">+ Adicionar Idioma</button>
+                    </div>
+                    <div id="languages-container"></div>
+                </section>
+            </div>
+
+            <!-- Sidebar Direita -->
+            <aside class="profile-sidebar-right">
+                <div class="reviews-card">
+                    <h3>⭐ Avaliações de Clientes</h3>
+                    <div id="reviews-container"></div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script>
+        // Dados iniciais
+        let profileData = {
+            fullName: "Ana Carolina Silva Santos",
+            email: "ana.carolina@email.com",
+            age: 28,
+            profession: "Desenvolvedora Full Stack",
+            bio: "Desenvolvedora full stack com 6 anos de experiência. Especializada em React, Node.js e Python. Apaixonada por criar soluções inovadoras e interfaces intuitivas. Disponível para projetos freelance e consultorias. Já trabalhei com mais de 50 clientes em 5 países diferentes.",
+            avatar: "A",
+            timeOnSite: "2 anos e 3 meses",
+            skills: ["React.js", "Node.js", "Python", "TypeScript", "UI/UX Design", "Figma", "MongoDB", "PostgreSQL"],
+            stats: {
+                projectsCompleted: 89,
+                averageRating: 4.9,
+                ongoingProjects: 6
+            },
+            availability: {
+                status: "available",
+                workHours: "30h/semana"
+            },
+            portfolio: [
+                { title: "E-commerce App", description: "Aplicativo mobile com React Native", client: "TechSolutions", icon: "🛒" },
+                { title: "Dashboard Analytics", description: "Sistema de BI com React e D3.js", client: "DataCorp", icon: "📊" },
+                { title: "Chatbot IA", description: "Chatbot com inteligência artificial", client: "InovaTech", icon: "🤖" }
+            ],
+            experiences: [
+                { title: "Desenvolvedora Full Stack Sênior", company: "TechCorp Solutions", period: "2021 - Presente", description: "Responsável pelo desenvolvimento de aplicações web utilizando React e Node.js. Liderança de equipe ágil e implementação de novas features. Aumento de 40% na performance das aplicações." },
+                { title: "Desenvolvedora Front-end Plena", company: "Digital Agency", period: "2018 - 2021", description: "Criação de interfaces responsivas e otimização de performance para sites de alto tráfego. Desenvolvimento de componentes reutilizáveis e design system." },
+                { title: "Freelancer", company: "Autônoma", period: "2016 - 2018", description: "Atendimento a diversos clientes em projetos de desenvolvimento web e mobile. Gestão completa do ciclo de desenvolvimento e relacionamento com clientes." }
+            ],
+            educations: [
+                { course: "Bacharelado em Ciência da Computação", institution: "Universidade de São Paulo (USP)", year: "2018", details: "CR: 8.5/10" },
+                { course: "Pós-graduação em Engenharia de Software", institution: "FIAP", year: "2020", details: "Especialização em Arquitetura de Software" }
+            ],
+            certificates: [
+                { name: "AWS Certified Developer", issuer: "Amazon Web Services", year: "2023" },
+                { name: "Scrum Master Certified", issuer: "ScrumStudy", year: "2022" },
+                { name: "React Advanced", issuer: "Meta", year: "2023" }
+            ],
+            languages: [
+                { name: "Português", level: "Nativo" },
+                { name: "Inglês", level: "Avançado (C1)" },
+                { name: "Espanhol", level: "Intermediário (B1)" }
+            ],
+            reviews: [
+                { client: "TechSolutions", rating: 5, comment: "Excelente profissional! Entregou tudo antes do prazo e com qualidade excepcional.", project: "E-commerce App - R$ 15.000", date: "Há 2 meses" },
+                { client: "Startup Inova", rating: 5, comment: "Comunicação clara e código de qualidade. Recomendo fortemente!", project: "Sistema de Gestão - R$ 8.000", date: "Há 3 meses" },
+                { client: "Agência Digital", rating: 4, comment: "Muito competente e dedicada. Voltaria a contratar sem dúvidas.", project: "Landing Page - R$ 3.500", date: "Há 5 meses" },
+                { client: "DataCorp", rating: 5, comment: "Trouxe soluções inovadoras para nossos problemas. Excelente!", project: "Dashboard Analytics - R$ 12.000", date: "Há 1 mês" }
+            ]
+        };
+
+        // Carregar dados do localStorage
+        function loadData() {
+            const saved = localStorage.getItem('freelancerProfile');
+            if (saved) {
+                profileData = JSON.parse(saved);
+            }
+            renderAll();
+        }
+
+        // Salvar dados no localStorage
+        function saveData() {
+            localStorage.setItem('freelancerProfile', JSON.stringify(profileData));
+            showToast('✅ Dados salvos com sucesso!');
+        }
+
+        // Renderizar todos os componentes
+        function renderAll() {
+            // Perfil básico
+            document.getElementById('fullName').value = profileData.fullName;
+            document.getElementById('email').value = profileData.email;
+            document.getElementById('age').value = profileData.age;
+            document.getElementById('profession').value = profileData.profession;
+            document.getElementById('bio').value = profileData.bio;
+            document.getElementById('headerUserName').textContent = profileData.fullName.split(' ')[0];
+            document.getElementById('profileAvatar').textContent = profileData.avatar;
+            document.getElementById('headerAvatar').textContent = profileData.avatar;
+            document.getElementById('timeOnSite').textContent = profileData.timeOnSite;
+            
+            // Estatísticas
+            document.getElementById('projectsCompleted').textContent = profileData.stats.projectsCompleted;
+            document.getElementById('averageRating').textContent = profileData.stats.averageRating;
+            document.getElementById('ongoingProjects').textContent = profileData.stats.ongoingProjects;
+            
+            // Disponibilidade
+            const statusDiv = document.getElementById('availability-status');
+            if (profileData.availability.status === 'available') {
+                statusDiv.className = 'availability-status available';
+                statusDiv.innerHTML = '<span class="status-dot"></span> Disponível para projetos';
+            } else {
+                statusDiv.className = 'availability-status busy';
+                statusDiv.innerHTML = '<span class="status-dot"></span> Indisponível no momento';
+            }
+            document.getElementById('workHours').textContent = profileData.availability.workHours;
+            
+            // Habilidades
+            renderSkills();
+            
+            // Portfólio
+            renderPortfolio();
+            
+            // Experiências
+            renderExperiences();
+            
+            // Educação
+            renderEducations();
+            
+            // Certificados
+            renderCertificates();
+            
+            // Idiomas
+            renderLanguages();
+            
+            // Avaliações
+            renderReviews();
+        }
+        
+        function renderSkills() {
+            const container = document.getElementById('skills-container');
+            container.innerHTML = '';
+            profileData.skills.forEach((skill, index) => {
+                const tag = document.createElement('span');
+                tag.className = 'skill-tag';
+                tag.textContent = skill;
+                tag.onclick = () => removeSkill(index);
+                container.appendChild(tag);
+            });
+        }
+        
+        function renderPortfolio() {
+            const container = document.getElementById('portfolio-container');
+            container.innerHTML = '';
+            profileData.portfolio.forEach((item, index) => {
+                const div = document.createElement('div');
+                div.className = 'portfolio-item';
+                div.innerHTML = `
+                    <button class="delete-item" onclick="deletePortfolio(${index})">×</button>
+                    <div class="portfolio-preview">${item.icon}</div>
+                    <div class="portfolio-info">
+                        <h4>${item.title}</h4>
+                        <p>${item.description}</p>
+                        <small>Cliente: ${item.client}</small>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        function renderExperiences() {
+            const container = document.getElementById('experience-container');
+            container.innerHTML = '';
+            profileData.experiences.forEach((exp, index) => {
+                const div = document.createElement('div');
+                div.className = 'experience-item';
+                div.innerHTML = `
+                    <button class="delete-item" onclick="deleteExperience(${index})">×</button>
+                    <div class="exp-header">
+                        <h3>${exp.title}</h3>
+                        <span class="exp-date">${exp.period}</span>
+                    </div>
+                    <p class="exp-company">${exp.company}</p>
+                    <p>${exp.description}</p>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        function renderEducations() {
+            const container = document.getElementById('education-container');
+            container.innerHTML = '';
+            profileData.educations.forEach((edu, index) => {
+                const div = document.createElement('div');
+                div.className = 'education-item';
+                div.innerHTML = `
+                    <button class="delete-item" onclick="deleteEducation(${index})">×</button>
+                    <h3>${edu.course}</h3>
+                    <p>${edu.institution} - ${edu.year}</p>
+                    <small>${edu.details}</small>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        function renderCertificates() {
+            const container = document.getElementById('certificates-container');
+            container.innerHTML = '';
+            profileData.certificates.forEach((cert, index) => {
+                const div = document.createElement('div');
+                div.className = 'certificate-item';
+                div.innerHTML = `
+                    <button class="delete-item" onclick="deleteCertificate(${index})">×</button>
+                    <div class="certificate-icon">📜</div>
+                    <div class="certificate-info">
+                        <h4>${cert.name}</h4>
+                        <p>${cert.issuer} - ${cert.year}</p>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        function renderLanguages() {
+            const container = document.getElementById('languages-container');
+            container.innerHTML = '';
+            profileData.languages.forEach((lang, index) => {
+                const div = document.createElement('div');
+                div.className = 'language-item';
+                div.innerHTML = `
+                    <button class="delete-item" onclick="deleteLanguage(${index})">×</button>
+                    <span class="language-name">${lang.name}</span>
+                    <span class="language-level">${lang.level}</span>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        function renderReviews() {
+            const container = document.getElementById('reviews-container');
+            container.innerHTML = '';
+            profileData.reviews.forEach(review => {
+                const div = document.createElement('div');
+                div.className = 'review-item';
+                const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+                div.innerHTML = `
+                    <div class="review-header">
+                        <strong>${review.client}</strong>
+                        <div class="rating">${stars}</div>
+                    </div>
+                    <p>"${review.comment}"</p>
+                    <small>💼 Projeto: ${review.project}</small>
+                    <small>📅 ${review.date}</small>
+                `;
+                container.appendChild(div);
+            });
+        }
+        
+        // Funções de edição
+        function toggleEdit() {
+            const inputs = document.querySelectorAll('#form-freelancer-profile input, #form-freelancer-profile textarea');
+            const buttonGroup = document.getElementById('buttonGroup');
+            const editBtn = document.getElementById('editBtn');
+            
+            const isEditing = buttonGroup.style.display === 'flex';
+            
+            if (isEditing) {
+                // Sair do modo edição sem salvar
+                cancelEdit();
+            } else {
+                // Entrar no modo edição
+                inputs.forEach(input => {
+                    input.disabled = false;
+                });
+                buttonGroup.style.display = 'flex';
+                editBtn.textContent = 'Cancelar Edição';
+                document.querySelector('.profile-main').classList.add('edit-mode');
+            }
+        }
+        
+        function saveProfile() {
+            // Salvar dados do formulário
+            profileData.fullName = document.getElementById('fullName').value;
+            profileData.email = document.getElementById('email').value;
+            profileData.age = parseInt(document.getElementById('age').value);
+            profileData.profession = document.getElementById('profession').value;
+            profileData.bio = document.getElementById('bio').value;
+            profileData.avatar = profileData.fullName.charAt(0).toUpperCase();
+            
+            saveData();
+            renderAll();
+            cancelEdit();
+            showToast('✅ Perfil atualizado com sucesso!');
+        }
+        
+        function cancelEdit() {
+            const inputs = document.querySelectorAll('#form-freelancer-profile input, #form-freelancer-profile textarea');
+            const buttonGroup = document.getElementById('buttonGroup');
+            const editBtn = document.getElementById('editBtn');
+            
+            inputs.forEach(input => {
+                input.disabled = true;
+            });
+            buttonGroup.style.display = 'none';
+            editBtn.textContent = '✏️ Editar Perfil';
+            document.querySelector('.profile-main').classList.remove('edit-mode');
+            
+            // Recarregar dados originais
+            renderAll();
+        }
+        
+        function changePhoto() {
+            const newAvatar = prompt('Digite a inicial para sua foto de perfil:', profileData.avatar);
+            if (newAvatar && newAvatar.length === 1) {
+                profileData.avatar = newAvatar.toUpperCase();
+                saveData();
+                renderAll();
+                showToast('✅ Foto atualizada!');
+            }
+        }
+        
+        function toggleAvailability() {
+            if (profileData.availability.status === 'available') {
+                profileData.availability.status = 'busy';
+            } else {
+                profileData.availability.status = 'available';
+            }
+            saveData();
+            renderAll();
+            showToast(`Status alterado para: ${profileData.availability.status === 'available' ? 'Disponível' : 'Indisponível'}`);
+        }
+        
+        function addNewSkill() {
+            const newSkill = prompt('Digite a nova habilidade:');
+            if (newSkill && newSkill.trim()) {
+                profileData.skills.push(newSkill.trim());
+                saveData();
+                renderSkills();
+                showToast(`✅ Habilidade "${newSkill}" adicionada!`);
+            }
+        }
+        
+        function removeSkill(index) {
+            if (confirm('Remover esta habilidade?')) {
+                profileData.skills.splice(index, 1);
+                saveData();
+                renderSkills();
+                showToast('✅ Habilidade removida!');
+            }
+        }
+        
+        function addPortfolio() {
+            const title = prompt('Nome do projeto:');
+            const description = prompt('Descrição do projeto:');
+            const client = prompt('Cliente:');
+            const icon = prompt('Emoji/Ícone do projeto:', '📁');
+            
+            if (title && description) {
+                profileData.portfolio.push({ title, description, client: client || 'Não informado', icon: icon || '📁' });
+                saveData();
+                renderPortfolio();
+                showToast('✅ Projeto adicionado ao portfólio!');
+            }
+        }
+        
+        function deletePortfolio(index) {
+            if (confirm('Remover este projeto do portfólio?')) {
+                profileData.portfolio.splice(index, 1);
+                saveData();
+                renderPortfolio();
+                showToast('✅ Projeto removido!');
+            }
+        }
+        
+        function addExperience() {
+            const title = prompt('Título do cargo:');
+            const company = prompt('Empresa:');
+            const period = prompt('Período (ex: 2020-2023):');
+            const description = prompt('Descrição das atividades:');
+            
+            if (title && company && description) {
+                profileData.experiences.push({ title, company, period: period || 'Data não informada', description });
+                saveData();
+                renderExperiences();
+                showToast('✅ Experiência adicionada!');
+            }
+        }
+        
+        function deleteExperience(index) {
+            if (confirm('Remover esta experiência?')) {
+                profileData.experiences.splice(index, 1);
+                saveData();
+                renderExperiences();
+                showToast('✅ Experiência removida!');
+            }
+        }
+        
+        function addEducation() {
+            const course = prompt('Curso/Formação:');
+            const institution = prompt('Instituição:');
+            const year = prompt('Ano de conclusão:');
+            const details = prompt('Detalhes adicionais (opcional):');
+            
+            if (course && institution) {
+                profileData.educations.push({ course, institution, year: year || 'Ano não informado', details: details || '' });
+                saveData();
+                renderEducations();
+                showToast('✅ Formação adicionada!');
+            }
+        }
+        
+        function deleteEducation(index) {
+            if (confirm('Remover esta formação?')) {
+                profileData.educations.splice(index, 1);
+                saveData();
+                renderEducations();
+                showToast('✅ Formação removida!');
+            }
+        }
+        
+        function addCertificate() {
+            const name = prompt('Nome do certificado:');
+            const issuer = prompt('Instituição emissora:');
+            const year = prompt('Ano de obtenção:');
+            
+            if (name && issuer) {
+                profileData.certificates.push({ name, issuer, year: year || 'Ano não informado' });
+                saveData();
+                renderCertificates();
+                showToast('✅ Certificado adicionado!');
+            }
+        }
+        
+        function deleteCertificate(index) {
+            if (confirm('Remover este certificado?')) {
+                profileData.certificates.splice(index, 1);
+                saveData();
+                renderCertificates();
+                showToast('✅ Certificado removido!');
+            }
+        }
+        
+        function addLanguage() {
+            const name = prompt('Idioma:');
+            const level = prompt('Nível (Nativo/Avançado/Intermediário/Básico):');
+            
+            if (name && level) {
+                profileData.languages.push({ name, level });
+                saveData();
+                renderLanguages();
+                showToast('✅ Idioma adicionado!');
+            }
+        }
+        
+        function deleteLanguage(index) {
+            if (confirm('Remover este idioma?')) {
+                profileData.languages.splice(index, 1);
+                saveData();
+                renderLanguages();
+                showToast('✅ Idioma removido!');
+            }
+        }
+        
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+        
+        // Inicializar
+        loadData();
+    </script>
+
+    <script src="/dado.js"></script>
+</body>
+</html>

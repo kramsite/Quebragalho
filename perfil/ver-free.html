@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Perfil do Freelancer - Quebragalho</title>
+    <link rel="stylesheet" href="../base/base.css">
+    <link rel="stylesheet" href="perfil.css">
+    <style>
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary-orange);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+            flex: 1;
+            text-decoration: none;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: #db7800;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--primary-orange);
+            color: var(--primary-orange);
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+            transition: all 0.3s;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary-orange);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .proposal-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .proposal-modal.show {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-content h3 {
+            color: var(--primary-orange);
+            margin-bottom: 20px;
+        }
+
+        .modal-content .input-group {
+            margin-bottom: 20px;
+        }
+
+        .modal-content label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .modal-content input,
+        .modal-content textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn-submit {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .btn-close {
+            background: #999;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .view-badge {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #4CAF50;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+
+        .rating {
+            color: #FFD700;
+        }
+
+        .portfolio-grid, .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .portfolio-item, .project-card {
+            background: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .portfolio-item:hover, .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .portfolio-preview {
+            background: linear-gradient(135deg, var(--primary-orange), var(--accent-yellow));
+            height: 150px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .portfolio-info, .project-info {
+            padding: 12px;
+        }
+
+        .skills-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .skill-tag {
+            background: #f0f0f0;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--dark-grey);
+        }
+
+        .experience-item, .education-item, .review-item, .feedback-item {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 5px;
+        }
+
+        .exp-date {
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .exp-company {
+            color: var(--primary-orange);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .time-on-site {
+            background: linear-gradient(135deg, var(--primary-orange), var(--accent-yellow));
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .time-on-site .days {
+            font-size: 2rem;
+            font-weight: bold;
+            display: block;
+        }
+
+        .availability-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .availability-status.available {
+            background: #e8f5e9;
+            color: #4CAF50;
+        }
+
+        .availability-status.busy {
+            background: #fff3e0;
+            color: #ff9800;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .company-logo-large, .freelancer-photo-large {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-orange), var(--accent-yellow));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: bold;
+            color: white;
+            margin: 0 auto 20px;
+        }
+
+        @media (max-width: 768px) {
+            .portfolio-grid, .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body class="profile-page freelancer-profile">
+    <main class="profile-container">
+        <header class="profile-header">
+            <div class="header-top">
+                <h1 class="brand-name">Quebra<span>galho</span></h1>
+                <nav class="nav-menu">
+                    <a href="#" class="nav-link">Dashboard</a>
+                    <a href="#" class="nav-link">Projetos</a>
+                    <a href="#" class="nav-link active">Freelancers</a>
+                    <a href="#" class="nav-link">Mensagens</a>
+                </nav>
+                <div class="user-menu">
+                    <span class="user-name" id="companyName">TechSolutions</span>
+                    <div class="avatar company-avatar" id="companyAvatar">T</div>
+                </div>
+            </div>
+        </header>
+
+        <div class="profile-content">
+            <!-- Sidebar Esquerda -->
+            <aside class="profile-sidebar">
+                <div class="freelancer-photo-section">
+                    <div class="freelancer-photo-large" id="freelancerAvatar">A</div>
+                    <div class="view-badge">Perfil Público</div>
+                </div>
+
+                <div class="time-on-site">
+                    <span class="days" id="timeOnSite">2 anos e 3 meses</span>
+                    <span class="label">📅 Membro do Quebragalho</span>
+                </div>
+
+                <div class="skills-card">
+                    <h3>🛠️ Habilidades Técnicas</h3>
+                    <div class="skills-tags" id="skillsContainer"></div>
+                </div>
+
+                <div class="stats-card">
+                    <h3>📊 Estatísticas</h3>
+                    <div class="stat">
+                        <span class="stat-number" id="projectsCompleted">89</span>
+                        <span class="stat-label">Projetos Completos</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="averageRating">4.9</span>
+                        <span class="stat-label">Avaliação Média</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number" id="ongoingProjects">6</span>
+                        <span class="stat-label">Em Andamento</span>
+                    </div>
+                </div>
+
+                <div class="availability-card">
+                    <h3>⏰ Disponibilidade</h3>
+                    <div class="availability-status available" id="availabilityStatus">
+                        <span class="status-dot"></span>
+                        Disponível para projetos
+                    </div>
+                    <p>📅 Carga horária: <span id="workHours">30h/semana</span></p>
+                    <p>🚀 Início imediato</p>
+                </div>
+
+                <div class="action-buttons">
+                    <a href="#" class="btn-primary" onclick="redirectToChat(event)">💬 Contatar</a>
+                    <button class="btn-secondary" onclick="openProposal()">📝 Enviar Proposta</button>
+                </div>
+            </aside>
+
+            <!-- Conteúdo Central -->
+            <div class="profile-main">
+                <section class="edit-section">
+                    <div class="section-header">
+                        <h2>👩‍💻 Perfil Profissional</h2>
+                    </div>
+                    <form class="profile-form">
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Nome Completo</label>
+                                <input type="text" id="fullName" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label>E-mail</label>
+                                <input type="email" id="email" disabled>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="input-group">
+                                <label>Idade</label>
+                                <input type="number" id="age" disabled>
+                            </div>
+                            <div class="input-group">
+                                <label>Profissão</label>
+                                <input type="text" id="profession" disabled>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <label>Biografia</label>
+                            <textarea id="bio" rows="4" disabled></textarea>
+                        </div>
+                    </form>
+                </section>
+
+                <section class="portfolio-section">
+                    <div class="section-header">
+                        <h2>🎨 Portfólio Recente</h2>
+                    </div>
+                    <div class="portfolio-grid" id="portfolioContainer"></div>
+                </section>
+
+                <section class="experience-section">
+                    <div class="section-header">
+                        <h2>💼 Experiência Profissional</h2>
+                    </div>
+                    <div id="experienceContainer"></div>
+                </section>
+
+                <section class="education-section">
+                    <div class="section-header">
+                        <h2>🎓 Formação Acadêmica</h2>
+                    </div>
+                    <div id="educationContainer"></div>
+                </section>
+            </div>
+
+            <!-- Sidebar Direita -->
+            <aside class="profile-sidebar-right">
+                <div class="reviews-card">
+                    <h3>⭐ Avaliações de Clientes</h3>
+                    <div id="reviewsContainer"></div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <div id="proposalModal" class="proposal-modal">
+        <div class="modal-content">
+            <h3>📝 Enviar Proposta</h3>
+            <div class="input-group">
+                <label>Título do Projeto *</label>
+                <input type="text" id="projectTitle" placeholder="Ex: Desenvolvimento de E-commerce">
+            </div>
+            <div class="input-group">
+                <label>Valor da Proposta (R$) *</label>
+                <input type="number" id="projectValue" placeholder="Ex: 5000">
+            </div>
+            <div class="input-group">
+                <label>Prazo (dias) *</label>
+                <input type="number" id="projectDeadline" placeholder="Ex: 30">
+            </div>
+            <div class="input-group">
+                <label>Descrição do Projeto *</label>
+                <textarea id="projectDescription" rows="4" placeholder="Descreva os detalhes do projeto..."></textarea>
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-submit" onclick="sendProposal()">Enviar Proposta</button>
+                <button class="btn-close" onclick="closeProposal()">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let freelancerData = null;
+        let freelancerId = null;
+
+        // Pegar ID do freelancer da URL
+        function getFreelancerIdFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('id') || 'freelancer_123';
+        }
+
+        // Carregar dados do freelancer do localStorage
+        function loadFreelancerData() {
+            freelancerId = getFreelancerIdFromUrl();
+            
+            // Tenta carregar dados específicos do freelancer
+            let saved = localStorage.getItem(`freelancer_${freelancerId}`);
+            
+            // Se não existir, tenta carregar o perfil padrão
+            if (!saved) {
+                saved = localStorage.getItem('freelancerProfile');
+            }
+            
+            // Se ainda não existir, usa dados padrão
+            if (saved) {
+                freelancerData = JSON.parse(saved);
+            } else {
+                // Dados padrão de exemplo
+                freelancerData = {
+                    fullName: "Ana Carolina Silva Santos",
+                    email: "ana.carolina@email.com",
+                    age: 28,
+                    profession: "Desenvolvedora Full Stack",
+                    bio: "Desenvolvedora full stack com 6 anos de experiência. Especializada em React, Node.js e Python.",
+                    avatar: "A",
+                    timeOnSite: "2 anos e 3 meses",
+                    skills: ["React.js", "Node.js", "Python", "TypeScript", "UI/UX Design"],
+                    stats: { projectsCompleted: 89, averageRating: 4.9, ongoingProjects: 6 },
+                    availability: { status: "available", workHours: "30h/semana" },
+                    portfolio: [
+                        { title: "E-commerce App", description: "Aplicativo mobile com React Native", client: "TechSolutions", icon: "🛒" },
+                        { title: "Dashboard Analytics", description: "Sistema de BI com React", client: "DataCorp", icon: "📊" }
+                    ],
+                    experiences: [
+                        { title: "Desenvolvedora Full Stack Sênior", company: "TechCorp Solutions", period: "2021 - Presente", description: "Desenvolvimento de aplicações web com React e Node.js." }
+                    ],
+                    educations: [
+                        { course: "Bacharelado em Ciência da Computação", institution: "Universidade de São Paulo", year: "2018" }
+                    ],
+                    reviews: [
+                        { client: "TechSolutions", rating: 5, comment: "Excelente profissional!", project: "E-commerce App", date: "Há 2 meses" }
+                    ]
+                };
+            }
+            
+            renderFreelancerProfile();
+        }
+
+        function renderFreelancerProfile() {
+            if (!freelancerData) return;
+            
+            // Perfil básico
+            document.getElementById('fullName').value = freelancerData.fullName;
+            document.getElementById('email').value = freelancerData.email;
+            document.getElementById('age').value = freelancerData.age;
+            document.getElementById('profession').value = freelancerData.profession;
+            document.getElementById('bio').value = freelancerData.bio;
+            document.getElementById('freelancerAvatar').textContent = freelancerData.avatar || freelancerData.fullName.charAt(0);
+            document.getElementById('timeOnSite').innerHTML = `<span class="days">${freelancerData.timeOnSite}</span><span class="label">📅 Membro do Quebragalho</span>`;
+            
+            // Estatísticas
+            document.getElementById('projectsCompleted').textContent = freelancerData.stats.projectsCompleted;
+            document.getElementById('averageRating').textContent = freelancerData.stats.averageRating;
+            document.getElementById('ongoingProjects').textContent = freelancerData.stats.ongoingProjects;
+            
+            // Disponibilidade
+            const statusDiv = document.getElementById('availabilityStatus');
+            if (freelancerData.availability.status === 'available') {
+                statusDiv.className = 'availability-status available';
+                statusDiv.innerHTML = '<span class="status-dot"></span> Disponível para projetos';
+            } else {
+                statusDiv.className = 'availability-status busy';
+                statusDiv.innerHTML = '<span class="status-dot"></span> Indisponível no momento';
+            }
+            document.getElementById('workHours').textContent = freelancerData.availability.workHours;
+            
+            // Habilidades
+            renderSkills();
+            
+            // Portfólio
+            renderPortfolio();
+            
+            // Experiências
+            renderExperiences();
+            
+            // Educação
+            renderEducations();
+            
+            // Avaliações
+            renderReviews();
+        }
+        
+        function renderSkills() {
+            const container = document.getElementById('skillsContainer');
+            container.innerHTML = '';
+            if (freelancerData.skills) {
+                freelancerData.skills.forEach(skill => {
+                    const tag = document.createElement('span');
+                    tag.className = 'skill-tag';
+                    tag.textContent = skill;
+                    container.appendChild(tag);
+                });
+            }
+        }
+        
+        function renderPortfolio() {
+            const container = document.getElementById('portfolioContainer');
+            container.innerHTML = '';
+            if (freelancerData.portfolio) {
+                freelancerData.portfolio.forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'portfolio-item';
+                    div.innerHTML = `
+                        <div class="portfolio-preview">${item.icon || '📁'}</div>
+                        <div class="portfolio-info">
+                            <h4>${item.title}</h4>
+                            <p>${item.description}</p>
+                            <small>Cliente: ${item.client}</small>
+                        </div>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+        }
+        
+        function renderExperiences() {
+            const container = document.getElementById('experienceContainer');
+            container.innerHTML = '';
+            if (freelancerData.experiences) {
+                freelancerData.experiences.forEach(exp => {
+                    const div = document.createElement('div');
+                    div.className = 'experience-item';
+                    div.innerHTML = `
+                        <div class="exp-header">
+                            <h3>${exp.title}</h3>
+                            <span class="exp-date">${exp.period}</span>
+                        </div>
+                        <p class="exp-company">${exp.company}</p>
+                        <p>${exp.description}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+        }
+        
+        function renderEducations() {
+            const container = document.getElementById('educationContainer');
+            container.innerHTML = '';
+            if (freelancerData.educations) {
+                freelancerData.educations.forEach(edu => {
+                    const div = document.createElement('div');
+                    div.className = 'education-item';
+                    div.innerHTML = `
+                        <h3>${edu.course}</h3>
+                        <p>${edu.institution} - ${edu.year}</p>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+        }
+        
+        function renderReviews() {
+            const container = document.getElementById('reviewsContainer');
+            container.innerHTML = '';
+            if (freelancerData.reviews) {
+                freelancerData.reviews.forEach(review => {
+                    const div = document.createElement('div');
+                    div.className = 'review-item';
+                    const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+                    div.innerHTML = `
+                        <div class="review-header">
+                            <strong>${review.client}</strong>
+                            <div class="rating">${stars}</div>
+                        </div>
+                        <p>"${review.comment}"</p>
+                        <small>💼 Projeto: ${review.project}</small>
+                        <small>📅 ${review.date}</small>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+        }
+        
+        function redirectToChat(event) {
+            event.preventDefault();
+            const chatUrl = `/chat.html?userType=company&contactId=${freelancerId}&contactName=${encodeURIComponent(freelancerData.fullName)}&contactAvatar=${freelancerData.avatar}`;
+            window.location.href = chatUrl;
+        }
+        
+        function openProposal() {
+            document.getElementById('proposalModal').classList.add('show');
+        }
+        
+        function closeProposal() {
+            document.getElementById('proposalModal').classList.remove('show');
+        }
+        
+        function sendProposal() {
+            const title = document.getElementById('projectTitle').value;
+            const value = document.getElementById('projectValue').value;
+            const deadline = document.getElementById('projectDeadline').value;
+            const description = document.getElementById('projectDescription').value;
+            
+            if (!title || !value || !deadline || !description) {
+                alert('⚠️ Por favor, preencha todos os campos!');
+                return;
+            }
+            
+            alert(`✅ Proposta enviada com sucesso para ${freelancerData.fullName}!\n\nProjeto: ${title}\nValor: R$ ${value}\nPrazo: ${deadline} dias`);
+            closeProposal();
+            
+            document.getElementById('projectTitle').value = '';
+            document.getElementById('projectValue').value = '';
+            document.getElementById('projectDeadline').value = '';
+            document.getElementById('projectDescription').value = '';
+        }
+        
+        // Carregar dados da empresa logada
+        function loadCompanyData() {
+            const saved = localStorage.getItem('companyProfile');
+            if (saved) {
+                const company = JSON.parse(saved);
+                document.getElementById('companyName').textContent = company.companyName?.split(' ')[0] || 'Empresa';
+                document.getElementById('companyAvatar').textContent = company.logo || 'E';
+            }
+        }
+        
+        loadCompanyData();
+        loadFreelancerData();
+    </script>
+
+    <script src="/dado.js"></script>
+</body>
+</html>
