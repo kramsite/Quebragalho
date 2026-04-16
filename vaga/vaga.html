@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Publicar Oportunidade - Quebragalho</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #ff6b00, #ff8c00);
+            color: white;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .brand-name {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .brand-name span {
+            color: #ffd700;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: white;
+            color: #ff6b00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 30px;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-title {
+            font-size: 1.5rem;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .form-subtitle {
+            color: #666;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .opportunity-type {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .type-btn {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: white;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .type-btn.selected {
+            border-color: #ff6b00;
+            background: #fff5ec;
+        }
+
+        .type-btn .emoji {
+            font-size: 2rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .type-btn .title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .type-btn .desc {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ff6b00;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .skills-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .skill-tag {
+            background: #ff6b00;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-tag button {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .btn-submit {
+            background: linear-gradient(135deg, #ff6b00, #ff8c00);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255,107,0,0.3);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .opportunity-type {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="brand-name">Quebra<span>galho</span></h1>
+        <div class="user-info">
+            <span id="userName">Carregando...</span>
+            <div class="user-avatar" id="userAvatar">U</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="form-card">
+            <h1 class="form-title">📢 Publicar Oportunidade</h1>
+            <p class="form-subtitle">Compartilhe uma vaga ou ofereça seus serviços</p>
+
+            <div class="opportunity-type">
+                <div class="type-btn" data-type="job" onclick="selectType('job')">
+                    <div class="emoji">🏢</div>
+                    <div class="title">Estou contratando</div>
+                    <div class="desc">Procuro freelancers para um projeto</div>
+                </div>
+                <div class="type-btn" data-type="service" onclick="selectType('service')">
+                    <div class="emoji">💼</div>
+                    <div class="title">Ofereço serviços</div>
+                    <div class="desc">Quero oferecer meu trabalho</div>
+                </div>
+            </div>
+
+            <form id="opportunityForm">
+                <input type="hidden" id="opportunityType" value="job">
+                
+                <div class="form-group">
+                    <label id="titleLabel">Título da Vaga *</label>
+                    <input type="text" id="title" required placeholder="Ex: Desenvolvedor React Sênior / Criação de Landing Page">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Categoria *</label>
+                        <select id="category" required>
+                            <option value="">Selecione</option>
+                            <option value="Desenvolvimento Web">🌐 Desenvolvimento Web</option>
+                            <option value="Desenvolvimento Mobile">📱 Desenvolvimento Mobile</option>
+                            <option value="Design">🎨 Design</option>
+                            <option value="Marketing">📢 Marketing</option>
+                            <option value="Redação">✍️ Redação</option>
+                            <option value="Consultoria">💡 Consultoria</option>
+                            <option value="Suporte">🛠️ Suporte Técnico</option>
+                            <option value="Outro">📌 Outro</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label id="valueLabel">Valor *</label>
+                        <input type="text" id="value" required placeholder="Ex: R$ 5.000 / R$ 50 por hora / A combinar">
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label id="deadlineLabel">Prazo / Duração *</label>
+                        <input type="text" id="deadline" required placeholder="Ex: 30 dias, 3 meses, Indeterminado">
+                    </div>
+                    <div class="form-group">
+                        <label>Modalidade</label>
+                        <select id="modality">
+                            <option value="Remoto">🏠 Remoto</option>
+                            <option value="Híbrido">🔄 Híbrido</option>
+                            <option value="Presencial">🏢 Presencial</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label id="descriptionLabel">Descrição *</label>
+                    <textarea id="description" rows="5" required placeholder="Descreva os detalhes do projeto, responsabilidades, requisitos..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Habilidades Necessárias</label>
+                    <input type="text" id="skillInput" placeholder="Digite uma habilidade e pressione Enter">
+                    <div class="skills-input" id="skillsList"></div>
+                </div>
+
+                <div class="form-group" id="benefitsGroup">
+                    <label>Benefícios (se for vaga)</label>
+                    <textarea id="benefits" rows="2" placeholder="Ex: Vale alimentação, Home office, Horário flexível..."></textarea>
+                </div>
+
+                <button type="submit" class="btn-submit">Publicar Oportunidade</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let userType = null;
+        let userData = null;
+        let currentSkills = [];
+        let selectedType = 'job';
+
+        function loadUserData() {
+            // Verificar se é empresa ou freelancer
+            const companyData = localStorage.getItem('companyProfile');
+            const freelancerData = localStorage.getItem('freelancerProfile');
+            
+            if (companyData) {
+                userType = 'company';
+                userData = JSON.parse(companyData);
+                document.getElementById('userName').textContent = userData.companyName?.split(' ')[0] || 'Empresa';
+                document.getElementById('userAvatar').textContent = userData.logo || 'E';
+            } else if (freelancerData) {
+                userType = 'freelancer';
+                userData = JSON.parse(freelancerData);
+                document.getElementById('userName').textContent = userData.fullName?.split(' ')[0] || 'Freelancer';
+                document.getElementById('userAvatar').textContent = userData.avatar || 'F';
+            } else {
+                // Dados de exemplo
+                userType = 'freelancer';
+                userData = { fullName: 'Usuário', avatar: 'U' };
+                document.getElementById('userName').textContent = 'Usuário';
+                document.getElementById('userAvatar').textContent = 'U';
+            }
+        }
+
+        function selectType(type) {
+            selectedType = type;
+            document.querySelectorAll('.type-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            document.querySelector(`.type-btn[data-type="${type}"]`).classList.add('selected');
+            document.getElementById('opportunityType').value = type;
+            
+            if (type === 'job') {
+                document.getElementById('titleLabel').textContent = 'Título da Vaga *';
+                document.getElementById('valueLabel').textContent = 'Valor Oferecido *';
+                document.getElementById('deadlineLabel').textContent = 'Prazo / Duração *';
+                document.getElementById('descriptionLabel').textContent = 'Descrição da Vaga *';
+                document.getElementById('benefitsGroup').style.display = 'block';
+            } else {
+                document.getElementById('titleLabel').textContent = 'Título do Serviço *';
+                document.getElementById('valueLabel').textContent = 'Valor do Serviço *';
+                document.getElementById('deadlineLabel').textContent = 'Prazo de Entrega *';
+                document.getElementById('descriptionLabel').textContent = 'Descrição do Serviço *';
+                document.getElementById('benefitsGroup').style.display = 'none';
+            }
+        }
+
+        function renderSkills() {
+            const container = document.getElementById('skillsList');
+            container.innerHTML = currentSkills.map((skill, index) => `
+                <div class="skill-tag">
+                    ${skill}
+                    <button type="button" onclick="removeSkill(${index})">×</button>
+                </div>
+            `).join('');
+        }
+
+        function addSkill(skill) {
+            if (skill && !currentSkills.includes(skill)) {
+                currentSkills.push(skill);
+                renderSkills();
+            }
+        }
+
+        function removeSkill(index) {
+            currentSkills.splice(index, 1);
+            renderSkills();
+        }
+
+        document.getElementById('skillInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                const skill = e.target.value.trim();
+                if (skill) {
+                    addSkill(skill);
+                    e.target.value = '';
+                }
+            }
+        });
+
+        document.getElementById('opportunityForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const opportunity = {
+                id: 'opp_' + Date.now(),
+                type: selectedType,
+                title: document.getElementById('title').value,
+                category: document.getElementById('category').value,
+                value: document.getElementById('value').value,
+                deadline: document.getElementById('deadline').value,
+                modality: document.getElementById('modality').value,
+                description: document.getElementById('description').value,
+                skills: currentSkills,
+                benefits: document.getElementById('benefits').value,
+                postedBy: userType,
+                postedByName: userType === 'company' ? userData.companyName : userData.fullName,
+                postedByAvatar: userType === 'company' ? (userData.logo || 'E') : (userData.avatar || 'F'),
+                postedByEmail: userType === 'company' ? userData.companyEmail : userData.email,
+                status: 'open',
+                createdAt: new Date().toISOString(),
+                applications: []
+            };
+            
+            // Salvar no localStorage
+            let opportunities = JSON.parse(localStorage.getItem('allOpportunities') || '[]');
+            opportunities.unshift(opportunity);
+            localStorage.setItem('allOpportunities', JSON.stringify(opportunities));
+            
+            showToast('✅ Oportunidade publicada com sucesso!');
+            
+            // Redirecionar após 2 segundos
+            setTimeout(() => {
+                window.location.href = userType === 'company' ? 'company-opportunities.html' : 'freelancer-opportunities.html';
+            }, 2000);
+        });
+
+        function showToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        loadUserData();
+        selectType('job');
+    </script>
+
+<script src="/dado.js"></script>
+</body>
+</html>
