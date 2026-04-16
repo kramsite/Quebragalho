@@ -1,16 +1,15 @@
 /* ================================================================
-   LÓGICA DE CADASTRO COMPLETA - QUEBRAGALHO
+   LÓGICA DE CADASTRO COMPLETA - QUEBRAGALHO (SIMULAÇÃO JSON)
    ================================================================ */
 
-// --- CONFIGURAÇÕES INICIAIS ---
 const multiStepForm = document.getElementById('multi-step-form');
 const inputCPF = document.getElementById('cpf');
 const toast = document.getElementById('toast');
 const toastMsg = document.getElementById('toast-message');
 
-/**
- * Exibe uma notificação elegante (Toast)
- */
+// Chave única para simular o banco de dados
+const DB_PATH = '../json/freelancers.json';
+
 function showToast(mensagem) {
     if (!toast || !toastMsg) return;
     toastMsg.innerText = mensagem;
@@ -20,11 +19,7 @@ function showToast(mensagem) {
     }, 3000);
 }
 
-/**
- * Alterna entre os passos do formulário (Mobile Friendly)
- */
 function nextStep(step) {
-    // Validação ao tentar ir para o passo 2
     if (step === 2) {
         const nome = document.getElementById('nome').value.trim();
         const cpf = document.getElementById('cpf').value.trim();
@@ -47,7 +42,6 @@ function nextStep(step) {
         }
     }
 
-    // Transição de telas
     document.querySelectorAll('.form-step').forEach(el => {
         el.style.display = 'none';
         el.classList.remove('active');
@@ -57,13 +51,10 @@ function nextStep(step) {
     if (nextStepEl) {
         nextStepEl.style.display = 'block';
         nextStepEl.classList.add('active');
-        window.scrollTo(0, 0); // Volta ao topo no mobile
+        window.scrollTo(0, 0);
     }
 }
 
-/**
- * Alterna a visibilidade da senha
- */
 function togglePassword(inputId, icon) {
     const input = document.getElementById(inputId);
     if (input.type === "password") {
@@ -75,11 +66,8 @@ function togglePassword(inputId, icon) {
     }
 }
 
-/**
- * Máscara de CPF Automática (000.000.000-00)
- */
 inputCPF.addEventListener('input', (e) => {
-    let v = e.target.value.replace(/\D/g, ""); // Remove tudo que não é número
+    let v = e.target.value.replace(/\D/g, ""); 
     if (v.length <= 11) {
         v = v.replace(/(\d{3})(\d)/, "$1.$2");
         v = v.replace(/(\d{3})(\d)/, "$1.$2");
@@ -89,7 +77,7 @@ inputCPF.addEventListener('input', (e) => {
 });
 
 /**
- * SUBMIT FINAL: Salvando em JSON
+ * SUBMIT FINAL: Salvando com lógica de "Banco de Dados"
  */
 multiStepForm.addEventListener('submit', function(e) {
     e.preventDefault();
@@ -100,7 +88,6 @@ multiStepForm.addEventListener('submit', function(e) {
     const senha = document.getElementById('senha').value;
     const confirma = document.getElementById('confirma-senha').value;
 
-    // Validação de senha
     if (senha.length < 6) {
         showToast("A senha deve ter no mínimo 6 dígitos.");
         return;
@@ -111,41 +98,44 @@ multiStepForm.addEventListener('submit', function(e) {
         return;
     }
 
-    // --- CRIAÇÃO DO OBJETO JSON ---
-    const novoUsuario = {
-        id: Date.now(), // Gera um ID único simples
+    // Estrutura profissional do objeto
+    const novoFreelancer = {
+        id: `free_${Date.now()}`, 
         nome,
         cpf,
         email,
-        senha, // Nota: Em produção, senhas devem ser criptografadas no servidor
+        senha, 
         tipo: "PF",
-        criadoEm: new Date().toLocaleString('pt-BR')
+        status: "ativo",
+        criadoEm: new Date().toISOString()
     };
 
     try {
-        // Busca lista existente ou cria nova
-        let db = JSON.parse(localStorage.getItem('../json/freelancers.json')) || [];
+        // 1. Obtém os dados da "tabela" freelancers
+        // Usamos a string do caminho como chave para organização mental
+        let db = JSON.parse(localStorage.getItem(DB_PATH)) || [];
         
-        // Verifica se e-mail já existe
-        if (db.some(u => u.email === email)) {
-            showToast("Este e-mail já está cadastrado.");
+        // 2. Verifica duplicidade (Email ou CPF)
+        if (db.some(u => u.email === email || u.cpf === cpf)) {
+            showToast("Este usuário já consta no nosso sistema.");
             return;
         }
 
-        // Adiciona e salva
-        db.push(novoUsuario);
-        localStorage.setItem('usuarios_quebragalho', JSON.stringify(db));
+        // 3. Adiciona e salva no LocalStorage
+        db.push(novoFreelancer);
+        localStorage.setItem(DB_PATH, JSON.stringify(db));
+
+        // 4. Log para facilitar o "copy-paste" para o arquivo físico se desejar
+        console.log(`Dados salvos em simulador de ${DB_PATH}:`, db);
 
         showToast("✅ Cadastro realizado com sucesso!");
-        console.log("JSON Salvo:", novoUsuario);
 
-        // Redireciona após sucesso
         setTimeout(() => {
             window.location.href = "../index/index.html";
         }, 2000);
 
     } catch (error) {
-        showToast("Erro ao salvar dados.");
+        showToast("Erro ao processar banco de dados local.");
         console.error(error);
     }
 });
