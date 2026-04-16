@@ -150,6 +150,77 @@ body {
     box-shadow: 0 6px 20px rgba(255, 140, 0, 0.6);
 }
 
+/* --- CONTEÚDO INTERNO DA VAGA-BOX --- */
+
+.vaga-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.vaga-tag {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.vaga-valor {
+    font-weight: 800;
+    color: #2ecc71; /* Verde para o valor */
+    font-size: 1.1rem;
+}
+
+.vaga-detalhes p {
+    font-size: 0.9rem;
+    color: var(--text-grey);
+    margin: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.vaga-detalhes i {
+    color: var(--primary-orange);
+    width: 14px;
+}
+
+/* BOTÃO DE INTERESSE DENTRO DO CARD */
+.btn-candidatar {
+    margin-top: 15px;
+    width: 100%;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid var(--border-light);
+    border-radius: 10px;
+    color: var(--primary-orange);
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-candidatar:hover {
+    background-color: var(--primary-orange);
+    color: white;
+    border-color: var(--primary-orange);
+}
+
+/* AJUSTE NA BOX PARA COLUNAR NO MOBILE */
+@media (max-width: 600px) {
+    .vaga-box {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .vaga-valor {
+        margin-top: 5px;
+        display: block;
+    }
+}
+
 /* Ajuste para dispositivos móveis (opcional) */
 @media (max-width: 768px) {
     .fab-add {
