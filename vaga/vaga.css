@@ -1,0 +1,227 @@
+/* ================================================================
+   CONFIGURAÇÕES BASE E VARIÁVEIS
+   ================================================================ */
+:root {
+    --primary-orange: #FF8C00;
+    --primary-light: #FFF4E6;
+    --text-dark: #2D3436;
+    --text-muted: #636E72;
+    --bg-light: #FDFDFD;
+    --border-color: #F1F2F6;
+    --shadow-soft: 0 10px 30px rgba(0, 0, 0, 0.04);
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --transition: all 0.3s ease;
+}
+
+body {
+    background-color: #FAFAFA;
+    font-family: 'Inter', -apple-system, sans-serif;
+    color: var(--text-dark);
+    margin: 0;
+    padding-top: 70px; /* Espaço para o header fixo não cobrir o conteúdo */
+}
+
+/* ================================================================
+   HEADER PADRÃO (CONFORME A HOME)
+   ================================================================ */
+.main-header {
+    background: white;
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed; /* Fixo no topo */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    height: 60px;
+    box-sizing: border-box;
+}
+
+.header-title {
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+}
+
+.btn-menu {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    color: var(--text-dark);
+    cursor: pointer;
+}
+
+.user-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    color: var(--primary-orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+}
+
+/* ================================================================
+   CONTAINER E FORMULÁRIO
+   ================================================================ */
+.container {
+    max-width: 700px;
+    margin: 30px auto 60px;
+    padding: 0 20px;
+}
+
+.form-card {
+    background: white;
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid var(--border-color);
+}
+
+.form-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.form-subtitle {
+    color: var(--text-muted);
+    margin-bottom: 30px;
+}
+
+/* SELETOR DE TIPO (JOB/SERVICE) */
+.opportunity-type {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 35px;
+}
+
+.type-btn {
+    flex: 1;
+    padding: 20px;
+    border: 2px solid #F8F9FA;
+    border-radius: var(--radius-md);
+    background: #F8F9FA;
+    cursor: pointer;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.type-btn.selected {
+    border-color: var(--primary-orange);
+    background: white;
+    box-shadow: 0 8px 20px rgba(255, 140, 0, 0.1);
+}
+
+.type-btn .title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 6px;
+    line-height: 1.2;
+}
+
+.type-btn .desc {
+    font-size: 0.76rem;
+    font-weight: 500;
+    color: #9a9a9a;
+    line-height: 1.45;
+    max-width: 180px;
+    margin: 0 auto;
+}
+
+/* CAMPOS DE ENTRADA */
+.form-group { margin-bottom: 20px; }
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--text-dark);
+    text-transform: uppercase;
+}
+
+.form-group input, 
+.form-group select, 
+.form-group textarea {
+    width: 100%;
+    padding: 14px;
+    background: #F8F9FA;
+    border: 2px solid #F8F9FA;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    transition: var(--transition);
+    box-sizing: border-box;
+}
+
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-orange);
+    background: white;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+/* HABILIDADES (TAGS) */
+.skills-input {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.skill-tag {
+    background: var(--primary-light);
+    color: var(--primary-orange);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.skill-tag button {
+    background: none; border: none; color: var(--primary-orange);
+    cursor: pointer; font-size: 1.1rem; padding: 0;
+}
+
+/* BOTÃO DE ENVIO */
+.btn-submit {
+    background: var(--primary-orange);
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 800;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 20px;
+    transition: var(--transition);
+}
+
+.btn-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(255, 140, 0, 0.2);
+}
+
+/* RESPONSIVIDADE */
+@media (max-width: 600px) {
+    .form-row { grid-template-columns: 1fr; }
+    .opportunity-type { flex-direction: column; }
+    .form-card { padding: 25px; }
+}

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Candidaturas - Quebragalho</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../base/base.css">
+    <link rel="stylesheet" href="minhas-vagas.css">
+</head>
+<body>
+
+    <div id="overlay" class="overlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">Quebra<span>galho</span></div>
+            <button class="btn-close" id="close-menu"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="../home/home.html"><i class="fa-solid fa-house"></i> Início</a></li>
+                <li><a href="#" class="active"><i class="fa-solid fa-briefcase"></i> Suas candidaturas</a></li>
+                <li><a href="../perfil/perfiledit/perfilfre.html"><i class="fa-solid fa-user"></i> Perfil</a></li>
+                <li><a href="#"><i class="fa-solid fa-bell"></i> Notificações</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="main-header">
+            <button class="btn-menu" id="open-menu">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+            <div class="header-title">Minhas Candidaturas</div>
+            <div class="user-info">
+                <img src="../img/Icon.jpg" alt="Perfil" class="profile-pic">
+            </div>
+        </header>
+
+        <section class="container">
+            <div class="status-tabs">
+                <button class="tab-btn active">Ativas (2)</button>
+                <button class="tab-btn">Finalizadas</button>
+            </div>
+
+            <div class="vagas-list" id="appliedJobsList">
+                <div class="vaga-card">
+                    <div class="vaga-badge" style="background-color: #FF8C00;">Diária</div>
+                    <div class="vaga-content">
+                        <h3 class="vaga-titulo">Garçom para Casamento</h3>
+                        <p class="vaga-empresa"><i class="fa-solid fa-building"></i> Buffet Real</p>
+                        <div class="vaga-meta">
+                            <span><i class="fa-solid fa-location-dot"></i> Cuiabá - Santa Rosa</span>
+                            <span class="vaga-valor">R$ 180,00</span>
+                        </div>
+                    </div>
+                    <div class="vaga-footer">
+                        <span class="status-tag"><i class="fa-solid fa-clock"></i> Aguardando retorno</span>
+                        <button class="btn-detalhes">Ver detalhes</button>
+                    </div>
+                </div>
+
+                <div class="vaga-card">
+                    <div class="vaga-badge" style="background-color: #2ecc71;">Serviço</div>
+                    <div class="vaga-content">
+                        <h3 class="vaga-titulo">Montador de Móveis</h3>
+                        <p class="vaga-empresa"><i class="fa-solid fa-user"></i> Particular</p>
+                        <div class="vaga-meta">
+                            <span><i class="fa-solid fa-location-dot"></i> Várzea Grande - Centro</span>
+                            <span class="vaga-valor">R$ 250,00</span>
+                        </div>
+                    </div>
+                    <div class="vaga-footer">
+                        <span class="status-tag"><i class="fa-solid fa-clock"></i> Aguardando retorno</span>
+                        <button class="btn-detalhes">Ver detalhes</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="vagas-list" id="appliedJobsList">
+    </div>
+
+<div id="emptyMessage" class="empty-state" style="display: none;">
+    <p>Você não tem freelancers finalizados</p>
+</div>
+        </section>
+    </main>
+
+    <script>
+       const tabs = document.querySelectorAll('.tab-btn');
+const jobsList = document.getElementById('appliedJobsList');
+const emptyMessage = document.getElementById('emptyMessage');
+
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // Remove active de todos e coloca no clicado
+        tabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        // Lógica de exibição
+        if (tab.textContent.includes('Finalizadas')) {
+            jobsList.style.display = 'none';
+            emptyMessage.style.display = 'flex';
+        } else {
+            jobsList.style.display = 'flex';
+            emptyMessage.style.display = 'none';
+        }
+    });
+});
+    </script>
+</body>
+</html>
