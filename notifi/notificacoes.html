@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificações - Quebragalho</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../base/base.css">
+    <link rel="stylesheet" href="notificacoes.css">
+</head>
+<body>
+
+    <div id="overlay" class="overlay"></div>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">Quebra<span>galho</span></div>
+            <button class="btn-close" id="close-menu"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="../home/home.html"><i class="fa-solid fa-house"></i> Início</a></li>
+                <li><a href="../candidatado/candi.html"><i class="fa-solid fa-briefcase"></i> Suas candidaturas</a></li>
+                <li><a href="../perfil/perfiledit/perfilfre.html"><i class="fa-solid fa-user"></i> Perfil</a></li>
+                <li><a href="#" class="active"><i class="fa-solid fa-bell"></i> Notificações</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="main-header">
+            <button class="btn-menu" id="open-menu">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+        </header>
+
+        <section class="container">
+            <div class="notif-header">
+                <span>Recentes</span>
+                <button class="btn-clear-all">Limpar tudo</button>
+            </div>
+
+            <div class="notif-list">
+                <div class="notif-card unread">
+                    <div class="notif-icon">
+                        <i class="fa-solid fa-hand-sparkles"></i>
+                    </div>
+                    <div class="notif-content">
+                        <div class="notif-text">
+                            <strong>Bem-vindo ao Quebragalho!</strong> 
+                            Sua conta foi criada com sucesso. Comece explorando as vagas disponíveis na sua região.
+                        </div>
+                        <span class="notif-time">Agora mesmo</span>
+                    </div>
+                    <div class="unread-dot"></div>
+                </div>
+
+                <div class="notif-card">
+                    <div class="notif-icon system">
+                        <i class="fa-solid fa-shield-check"></i>
+                    </div>
+                    <div class="notif-content">
+                        <div class="notif-text">
+                            <strong>Dica de Segurança:</strong> Nunca faça pagamentos antecipados sem antes verificar a procedência do contratante.
+                        </div>
+                        <span class="notif-time">Agora mesmo</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const btnOpen = document.getElementById('open-menu');
+        const btnClose = document.getElementById('close-menu');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        if(btnOpen) btnOpen.onclick = () => { sidebar.classList.add('active'); overlay.classList.add('active'); };
+        if(btnClose) btnClose.onclick = () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); };
+        overlay.onclick = () => { sidebar.classList.remove('active'); overlay.classList.remove('active'); };
+    </script>
+</body>
+</html>

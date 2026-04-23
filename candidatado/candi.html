@@ -22,7 +22,7 @@
                 <li><a href="../home/home.html"><i class="fa-solid fa-house"></i> Início</a></li>
                 <li><a href="#" class="active"><i class="fa-solid fa-briefcase"></i> Suas candidaturas</a></li>
                 <li><a href="../perfil/perfiledit/perfilfre.html"><i class="fa-solid fa-user"></i> Perfil</a></li>
-                <li><a href="#"><i class="fa-solid fa-bell"></i> Notificações</a></li>
+                <li><a href="../notifi/notificacoes.html"><i class="fa-solid fa-bell"></i> Notificações</a></li>
             </ul>
         </nav>
     </aside>
@@ -32,10 +32,6 @@
             <button class="btn-menu" id="open-menu">
                 <i class="fa-solid fa-bars-staggered"></i>
             </button>
-            <div class="header-title">Minhas Candidaturas</div>
-            <div class="user-info">
-                <img src="../img/Icon.jpg" alt="Perfil" class="profile-pic">
-            </div>
         </header>
 
         <section class="container">
@@ -78,36 +74,58 @@
                 </div>
             </div>
 
-            <div class="vagas-list" id="appliedJobsList">
-    </div>
-
-<div id="emptyMessage" class="empty-state" style="display: none;">
-    <p>Você não tem freelancers finalizados</p>
-</div>
+            <div id="emptyMessage" class="empty-state" style="display: none;">
+                <i class="fa-solid fa-folder-open" style="font-size: 3rem; margin-bottom: 15px; color: #ccc;"></i>
+                <p>Você não tem freelancers finalizados</p>
+            </div>
         </section>
     </main>
 
     <script>
-       const tabs = document.querySelectorAll('.tab-btn');
-const jobsList = document.getElementById('appliedJobsList');
-const emptyMessage = document.getElementById('emptyMessage');
+        // 1. Controle das Abas (Ativas vs Finalizadas)
+        const tabs = document.querySelectorAll('.tab-btn');
+        const jobsList = document.getElementById('appliedJobsList');
+        const emptyMessage = document.getElementById('emptyMessage');
 
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        // Remove active de todos e coloca no clicado
-        tabs.forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
 
-        // Lógica de exibição
-        if (tab.textContent.includes('Finalizadas')) {
-            jobsList.style.display = 'none';
-            emptyMessage.style.display = 'flex';
-        } else {
-            jobsList.style.display = 'flex';
-            emptyMessage.style.display = 'none';
+                if (tab.textContent.includes('Finalizadas')) {
+                    jobsList.style.display = 'none';
+                    emptyMessage.style.display = 'flex';
+                } else {
+                    jobsList.style.display = 'flex';
+                    emptyMessage.style.display = 'none';
+                }
+            });
+        });
+
+        // 2. Controle da Sidebar (Menu Lateral)
+        const btnMenu = document.getElementById('open-menu');
+        const btnClose = document.getElementById('close-menu');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+
+        if(btnMenu) {
+            btnMenu.onclick = () => {
+                sidebar.classList.add('active');
+                overlay.classList.add('active');
+            };
         }
-    });
-});
+
+        if(btnClose) {
+            btnClose.onclick = () => {
+                sidebar.classList.remove('active');
+                overlay.classList.remove('active');
+            };
+        }
+
+        overlay.onclick = () => {
+            sidebar.classList.remove('active');
+            overlay.classList.remove('active');
+        };
     </script>
 </body>
 </html>

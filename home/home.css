@@ -208,6 +208,44 @@ body {
     border-color: var(--primary-orange);
 }
 
+/* --- ESTILO DO TOAST (MENSAGEM DE SUCESSO) --- */
+.toast-success {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background-color: #2ecc71; /* Verde sucesso */
+    color: white;
+    padding: 15px 25px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 25px rgba(46, 204, 113, 0.3);
+    z-index: 2000;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+}
+
+.toast-success.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+}
+
+.toast-success i {
+    font-size: 1.2rem;
+}
+
+.toast-content b {
+    display: block;
+    font-size: 1rem;
+}
+
+.toast-content span {
+    font-size: 0.85rem;
+    opacity: 0.9;
+}
+
 /* AJUSTE NA BOX PARA COLUNAR NO MOBILE */
 @media (max-width: 600px) {
     .vaga-box {
